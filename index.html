@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uncle Shey's Welding Center - Premium Welding Services</title>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Bootstrap CSS (downloaded locally) -->
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top" style="background: linear-gradient(90deg, #1a1a1a 0%, #2d2d2d 100%); box-shadow: 0 4px 12px rgba(220, 53, 69, 0.2); display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem;">
+        <a class="navbar-brand bold-text" href="#" style="font-size: 1.4rem; font-weight: 800; letter-spacing: 1px; margin: 0;"><i class="fas fa-fire" style="color: #ff6b6b; margin-right: 8px;"></i>Uncle Shey's Welding</a>
+        
+        <ul class="navbar-nav" style="display: flex; flex-direction: row; gap: 2rem; margin: 0; list-style: none;">
+            <li class="nav-item"><a class="nav-link fw-500" href="#gallery" style="transition: 0.3s; color: white; text-decoration: none;"><i class="fas fa-images"></i> Gallery</a></li>
+            <li class="nav-item"><a class="nav-link fw-500" href="#videos" style="transition: 0.3s; color: white; text-decoration: none;"><i class="fas fa-play-circle"></i> Videos</a></li>
+            <li class="nav-item"><a class="nav-link fw-500" href="#contact" style="transition: 0.3s; color: white; text-decoration: none;"><i class="fas fa-phone"></i> Contact</a></li>
+            <li class="nav-item"><a class="nav-link fw-500" href="admin.html" style="color: #ff9999; transition: 0.3s; text-decoration: none;"><i class="fas fa-cog"></i> Admin</a></li>
+            <li class="nav-item"><span class="theme-toggle" onclick="toggleTheme()" title="Toggle Light/Dark Theme"><i class="fas fa-moon"></i></span></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section text-white text-center py-5">
+        <div class="container">
+            <h1 class="display-2 fw-bold" style="text-shadow: 3px 3px 6px rgba(0,0,0,0.4);">Uncle Shey's Welding Center</h1>
+            <p class="lead" style="font-size: 1.5rem; font-weight: 500;">Premium Welding & Metal Fabrication Excellence</p>
+            <p class="subtitle" style="font-size: 1.2rem; opacity: 0.95;">✨ Expert Craftsmanship | Click images to inquire on WhatsApp</p>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="gallery-section py-5">
+        <div class="container">
+            <h2 class="text-center mb-5 section-title">Our Work</h2>
+            <div class="gallery-row">
+                <!-- Gallery items will be loaded dynamically here -->
+            </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Videos Section -->
+    <section id="videos" class="videos-section py-5" style="background-color: #f8f9fa;">
+        <div class="container">
+            <h2 class="text-center mb-5 section-title">Project Videos</h2>
+            <div class="videos-row">
+                <!-- Video 1 -->
+                <div style="flex: 1; min-width: 0;">
+                    <div class="video-card">
+                        <div class="video-embed" style="position: relative; width: 100%; padding-bottom: 56.25%; overflow: hidden; border-radius: 8px;">
+                            <iframe width="100%" height="100%" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Welding Process Demo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" ></iframe>
+                        </div>
+                        <h5 class="video-title mt-3"><i class="fas fa-video"></i> Welding Process Demo</h5>
+                        <small class="text-muted">📝 Replace the YouTube link with your own</small>
+                    </div>
+                </div>
+                <!-- Video 2 -->
+                <div style="flex: 1; min-width: 0;">
+                    <div class="video-card">
+                        <div class="video-embed" style="position: relative; width: 100%; padding-bottom: 56.25%; overflow: hidden; border-radius: 8px;">
+                            <iframe width="100%" height="100%" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Project Showcase 2024" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
+                        </div>
+                        <h5 class="video-title mt-3"><i class="fas fa-video"></i> Project Showcase 2024</h5>
+                        <small class="text-muted">📝 Replace the YouTube link with your own</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="contact" class="contact-section py-5 bg-light">
+        <div class="container text-center">
+            <h2 class="mb-4 section-title">Get in Touch</h2>
+            <p class="mb-3">Interested in our welding services? Contact us today!</p>
+            <a href="#" id="mainWhatsAppBtn" class="btn btn-success btn-lg" style="display: none;">
+                <i class="fab fa-whatsapp"></i> Message on WhatsApp
+            </a>
+            <p class="mt-3 text-muted">Phone: <strong id="businessPhone"></strong></p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-4" style="border-top: 3px solid #dc3545;">
+        <p style="margin: 0; font-weight: 500;">&copy; 2026 Uncle Shey's Welding Center. Premium Quality. Unmatched Excellence.</p>
+        <p style="margin: 5px 0 0 0; font-size: 0.9rem; opacity: 0.8;">All rights reserved | Expert Craftsmanship Since Day One</p>
+    </footer>
+
+    <!-- Bootstrap JS (downloaded locally) -->
+    <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Gallery Management JS -->
+    <script src="js/gallery.js"></script>
+    <!-- Application JS -->
+    <script src="js/app.js"></script>
+    <!-- Theme Toggle -->
+    <script>
+        function toggleTheme() {
+            const body = document.body;
+            const themeToggle = document.querySelector('.theme-toggle i');
+            
+            body.classList.toggle('light-theme');
+            
+            if (body.classList.contains('light-theme')) {
+                localStorage.setItem('theme', 'light');
+                themeToggle.classList.remove('fa-moon');
+                themeToggle.classList.add('fa-sun');
+            } else {
+                localStorage.setItem('theme', 'dark');
+                themeToggle.classList.remove('fa-sun');
+                themeToggle.classList.add('fa-moon');
+            }
+        }
+        
+        // Load theme on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            if (savedTheme === 'light') {
+                document.body.classList.add('light-theme');
+                document.querySelector('.theme-toggle i').classList.remove('fa-moon');
+                document.querySelector('.theme-toggle i').classList.add('fa-sun');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Uncle Shey's Welding Center</title>
+    <!-- Bootstrap CSS (downloaded locally) -->
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand bold-text" href="index.html">🔧 Admin Dashboard</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Back to Gallery</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container py-5">
+        <h1 class="mb-4" style="color: #dc3545; font-weight: bold; font-size: 2.5rem;">🔥 Admin Dashboard - Uncle Shey's Welding Center</h1>
+
+        <!-- Settings Section -->
+        <div class="card mb-4">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Business Settings</h5>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <label for="businessPhone" class="form-label">WhatsApp Phone Number (with country code, e.g., +1234567890)</label>
+                    <input type="tel" class="form-control" id="businessPhone" placeholder="+1234567890" value="+212676866995">
+                </div>
+                <button class="btn btn-primary" onclick="saveSettings()">Save Settings</button>
+            </div>
+        </div>
+
+    <!-- Upload Section -->
+        <div class="card mb-4">
+            <div class="card-header bg-success text-white">
+                <h5 class="mb-0">➕ Add New Item</h5>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <label for="newItemTitle" class="form-label">Item Title</label>
+                    <input type="text" class="form-control" id="newItemTitle" placeholder="e.g., Stainless Steel Gate">
+                </div>
+                <div class="mb-3">
+                    <label for="newItemPrice" class="form-label">Price</label>
+                    <input type="text" class="form-control" id="newItemPrice" placeholder="e.g., 10,000">
+                </div>
+                <div class="mb-3">
+                    <label for="newItemImage" class="form-label">Select Image</label>
+                    <input type="file" class="form-control" id="newItemImage" accept="image/*">
+                    <small class="text-muted">Upload a new image for the gallery</small>
+                </div>
+                <button class="btn btn-success w-100" onclick="addNewItem()">Add Item to Gallery</button>
+            </div>
+        </div>
+
+        <!-- Gallery Management Section -->
+        <div class="card">
+            <div class="card-header bg-info text-white">
+                <h5 class="mb-0">🖼️ Manage Gallery Items</h5>
+            </div>
+            <div class="card-body">
+                <div class="row g-4" id="adminGalleryContainer">
+                    <!-- Gallery items loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS (downloaded locally) -->
+    <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Gallery Management JS -->
+    <script src="js/gallery.js"></script>
+    <!-- Admin Gallery JS -->
+    <script src="js/admin-gallery.js"></script>
+</body>
+</html>
