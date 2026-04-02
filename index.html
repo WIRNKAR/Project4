@@ -1,131 +1,1583 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Uncle Shey's Welding Center - Premium Welding Services</title>
-    <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Bootstrap CSS (downloaded locally) -->
-    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Uncle Shey's Welding Center — Premium welding and metal fabrication services in Douala, Cameroon.">
+  <meta name="keywords" content="welding, fabrication, steel, gates, grills, metalwork, Douala, Cameroon">
+  <title>Uncle Shey's Welding Center | Premium Welding Services</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  
+  <style>
+    /* ===== CSS VARIABLES & THEME SYSTEM ===== */
+    :root {
+      --bg: #F5F0E8;
+      --bg2: #EDE7DA;
+      --surface: #FFFFFF;
+      --text: #1A1208;
+      --text2: #6B5E46;
+      --accent: #C8410A;
+      --accent2: #E8650F;
+      --steel: #3D4A5C;
+      --border: rgba(26, 18, 8, 0.10);
+      --nav-bg: rgba(245, 240, 232, 0.92);
+      --wa: #25D366;
+      --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    [data-theme="dark"] {
+      --bg: #0F1117;
+      --bg2: #171C27;
+      --surface: #1E2535;
+      --text: #F0EAD8;
+      --text2: #9A8E78;
+      --accent: #E8650F;
+      --nav-bg: rgba(15, 17, 23, 0.92);
+      --card-shadow: 0 2px 16px rgba(0, 0, 0, 0.3);
+    }
+
+    /* ===== RESET & BASE STYLES ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    /* ===== TYPOGRAPHY ===== */
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Bebas Neue', sans-serif;
+      line-height: 0.9;
+      letter-spacing: 1px;
+    }
+
+    em {
+      font-style: normal;
+      color: var(--accent);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* ===== BUTTONS ===== */
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+      padding: 14px 28px;
+      border-radius: 6px;
+      border: none;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      background: var(--accent2);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text);
+      padding: 14px 28px;
+      border-radius: 6px;
+      border: 1.5px solid var(--border);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* ===== FORMS ===== */
+    input, select, textarea {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 14px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      color: var(--text);
+      width: 100%;
+      transition: border-color 0.3s ease;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--accent);
+      outline: none;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    .form-group {
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+      font-size: 0.9rem;
+    }
+
+    .form-error {
+      display: none;
+      color: #E24B4A;
+      font-size: 0.8rem;
+      margin-top: 0.25rem;
+    }
+
+    .form-group.invalid input,
+    .form-group.invalid select,
+    .form-group.invalid textarea {
+      border-color: #E24B4A;
+    }
+
+    .form-group.invalid .form-error {
+      display: block;
+    }
+
+    /* ===== NAVBAR ===== */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 64px;
+      background: var(--nav-bg);
+      backdrop-filter: blur(12px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      z-index: 100;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.8rem;
+      letter-spacing: 2px;
+      font-weight: 700;
+      display: flex;
+      gap: 0.25rem;
+    }
+
+    .logo-accent {
+      color: var(--accent);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .nav-links a {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text2);
+      transition: color 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent);
+    }
+
+    .nav-controls {
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+    }
+
+    .icon-btn {
+      width: 36px;
+      height: 36px;
+      border: 1px solid var(--border);
+      background: transparent;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+    }
+
+    .icon-btn:hover {
+      border-color: var(--accent);
+      transform: scale(1.05);
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .hamburger span {
+      width: 24px;
+      height: 2px;
+      background: var(--text);
+      transition: all 0.3s ease;
+    }
+
+    /* ===== MOBILE MENU ===== */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 64px;
+      left: 0;
+      right: 0;
+      background: var(--nav-bg);
+      backdrop-filter: blur(12px);
+      flex-direction: column;
+      padding: 1.5rem 2rem;
+      gap: 1.25rem;
+      border-bottom: 1px solid var(--border);
+      z-index: 99;
+    }
+
+    .mobile-menu.open {
+      display: flex;
+    }
+
+    .mobile-menu a {
+      font-size: 1rem;
+      color: var(--text2);
+      transition: color 0.3s ease;
+    }
+
+    .mobile-menu a:hover {
+      color: var(--accent);
+    }
+
+    /* ===== HERO SECTION ===== */
+    section {
+      scroll-margin-top: 64px;
+    }
+
+    #home {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 6rem 2rem 2rem 2rem;
+      background: var(--bg);
+      position: relative;
+    }
+
+    #home::before {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 55%;
+      height: 100%;
+      background: var(--bg2);
+      clip-path: polygon(10% 0, 100% 0, 100% 100%, 0% 100%);
+      z-index: 0;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 600px;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: var(--accent);
+      color: white;
+      padding: 8px 16px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .hero-content h1 {
+      font-size: clamp(3.5rem, 7vw, 6rem);
+      color: var(--text);
+      margin-bottom: 1.5rem;
+      line-height: 0.9;
+    }
+
+    .hero-content p {
+      font-size: 1.1rem;
+      color: var(--text2);
+      margin-bottom: 2rem;
+      line-height: 1.7;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .hero-visual {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 1.5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--card-shadow);
+    }
+
+    .stat-number {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.8rem;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--text2);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .accent-card {
+      grid-column: span 2;
+      background: var(--accent);
+      color: white;
+      border-radius: 12px;
+      padding: 2rem;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .accent-card span {
+      font-size: 1.5rem;
+      margin-right: 0.5rem;
+    }
+
+    /* ===== SECTION HEADERS ===== */
+    .section-label {
+      font-size: 0.75rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      color: var(--text);
+      margin-bottom: 0.5rem;
+      line-height: 0.9;
+    }
+
+    .section-subtitle {
+      font-size: 1rem;
+      color: var(--text2);
+      margin-bottom: 3rem;
+      max-width: 500px;
+    }
+
+    /* ===== PRODUCTS SECTION ===== */
+    #products {
+      background: var(--bg2);
+      padding: 4rem 2rem;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    article.product-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    article.product-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--card-shadow);
+    }
+
+    .product-image {
+      position: relative;
+      height: 220px;
+      background: var(--bg2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .product-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .product-image-placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      gap: 0.5rem;
+      width: 100%;
+      height: 100%;
+    }
+
+    .product-tag {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: var(--accent);
+      color: white;
+      padding: 6px 12px;
+      border-radius: 4px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .wa-badge {
+      position: absolute;
+      bottom: 12px;
+      right: 12px;
+      width: 44px;
+      height: 44px;
+      background: var(--wa);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .wa-badge:hover {
+      transform: scale(1.12);
+    }
+
+    .product-body {
+      padding: 1.25rem;
+    }
+
+    .product-name {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+
+    .product-description {
+      font-size: 0.85rem;
+      color: var(--text2);
+      margin-bottom: 1rem;
+    }
+
+    .product-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .product-price {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem;
+      color: var(--accent);
+    }
+
+    .product-price-label {
+      font-size: 0.7rem;
+      font-family: 'DM Sans', sans-serif;
+      display: block;
+      color: var(--text2);
+    }
+
+    /* ===== SERVICES SECTION ===== */
+    #services {
+      background: var(--bg);
+      padding: 4rem 2rem;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .service-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .service-card:hover {
+      border-color: var(--accent);
+    }
+
+    .service-icon {
+      font-size: 2.2rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .service-name {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 0.75rem;
+    }
+
+    .service-description {
+      font-size: 0.85rem;
+      color: var(--text2);
+      line-height: 1.5;
+    }
+
+    /* ===== GALLERY SECTION ===== */
+    #gallery {
+      background: var(--bg2);
+      padding: 4rem 2rem;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-auto-rows: 200px;
+      gap: 1rem;
+    }
+
+    .gallery-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--card-shadow);
+    }
+
+    .gallery-item.wide {
+      grid-column: span 2;
+    }
+
+    .gallery-item.tall {
+      grid-row: span 2;
+    }
+
+    .gallery-placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      background: var(--bg2);
+      font-size: 2.5rem;
+      gap: 0.5rem;
+    }
+
+    .gallery-placeholder-label {
+      font-size: 0.85rem;
+      color: var(--text2);
+    }
+
+    /* ===== CONTACT SECTION ===== */
+    #contact {
+      background: var(--bg);
+      padding: 4rem 2rem;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+    }
+
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .contact-intro {
+      font-size: 1rem;
+      color: var(--text2);
+      line-height: 1.7;
+    }
+
+    .contact-item {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .contact-icon {
+      width: 44px;
+      height: 44px;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+
+    .contact-details {
+      flex: 1;
+    }
+
+    .contact-label {
+      font-size: 0.85rem;
+      color: var(--text2);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 0.25rem;
+    }
+
+    .contact-text {
+      font-size: 1rem;
+      color: var(--text);
+    }
+
+    .contact-text a {
+      color: var(--accent);
+      transition: color 0.3s ease;
+    }
+
+    .contact-text a:hover {
+      color: var(--accent2);
+    }
+
+    .social-buttons {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .social-link {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 12px 16px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: transparent;
+      color: var(--text);
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .social-link.whatsapp:hover {
+      background: var(--wa);
+      color: white;
+      border-color: var(--wa);
+    }
+
+    .social-link.facebook:hover {
+      background: #1877F2;
+      color: white;
+      border-color: #1877F2;
+    }
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .form-success {
+      display: none;
+      background: #D4EDDA;
+      color: #155724;
+      padding: 1rem;
+      border-radius: 8px;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .form-success.show {
+      display: block;
+      animation: slideDown 0.3s ease;
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      padding: 3rem 2rem 2rem 2rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .footer-brand {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .footer-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.6rem;
+      color: var(--accent);
+      letter-spacing: 1px;
+    }
+
+    .footer-tagline {
+      font-size: 0.9rem;
+      color: var(--text2);
+      line-height: 1.6;
+    }
+
+    .footer-section h3 {
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .footer-section ul {
+      list-style: none;
+    }
+
+    .footer-section li {
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-section a {
+      color: var(--text2);
+      transition: color 0.3s ease;
+      font-size: 0.9rem;
+    }
+
+    .footer-section a:hover {
+      color: var(--accent);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid var(--border);
+      padding-top: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+      color: var(--text2);
+    }
+
+    .footer-credit {
+      font-size: 0.8rem;
+    }
+
+    /* ===== RESPONSIVE DESIGN ===== */
+    @media (max-width: 768px) {
+      nav {
+        padding: 0 1.25rem;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      #home {
+        grid-template-columns: 1fr;
+        padding: 6rem 1.25rem 2rem 1.25rem;
+      }
+
+      #home::before {
+        display: none;
+      }
+
+      .hero-visual {
+        display: none;
+      }
+
+      #products, #services, #gallery, #contact, footer {
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+      }
+
+      .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .gallery-item.wide {
+        grid-column: span 1;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .footer-brand {
+        grid-column: span 2;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .gallery-grid {
+        grid-template-columns: 1fr;
+        grid-auto-rows: 150px;
+      }
+
+      .product-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .gallery-item.tall {
+        grid-row: span 1;
+      }
+
+      .hero-buttons {
+        flex-direction: column;
+      }
+
+      .hero-buttons button,
+      .hero-buttons a {
+        width: 100%;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .social-buttons {
+        flex-direction: column;
+      }
+    }
+  </style>
 </head>
 <body>
-    <!-- Navigation Bar -->
-    <nav class="navbar navbar-expand-lg navbar-dark sticky-top" style="background: linear-gradient(90deg, #1a1a1a 0%, #2d2d2d 100%); box-shadow: 0 4px 12px rgba(220, 53, 69, 0.2); display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem;">
-        <a class="navbar-brand bold-text" href="#" style="font-size: 1.4rem; font-weight: 800; letter-spacing: 1px; margin: 0;"><i class="fas fa-fire" style="color: #ff6b6b; margin-right: 8px;"></i>Uncle Shey's Welding</a>
-        
-        <ul class="navbar-nav" style="display: flex; flex-direction: row; gap: 2rem; margin: 0; list-style: none;">
-            <li class="nav-item"><a class="nav-link fw-500" href="#gallery" style="transition: 0.3s; color: white; text-decoration: none;"><i class="fas fa-images"></i> Gallery</a></li>
-            <li class="nav-item"><a class="nav-link fw-500" href="#videos" style="transition: 0.3s; color: white; text-decoration: none;"><i class="fas fa-play-circle"></i> Videos</a></li>
-            <li class="nav-item"><a class="nav-link fw-500" href="#contact" style="transition: 0.3s; color: white; text-decoration: none;"><i class="fas fa-phone"></i> Contact</a></li>
-            <li class="nav-item"><a class="nav-link fw-500" href="admin.html" style="color: #ff9999; transition: 0.3s; text-decoration: none;"><i class="fas fa-cog"></i> Admin</a></li>
-            <li class="nav-item"><span class="theme-toggle" onclick="toggleTheme()" title="Toggle Light/Dark Theme"><i class="fas fa-moon"></i></span></li>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav role="navigation" aria-label="Main navigation">
+    <a href="#home" class="logo">
+      <span class="logo-accent">Uncle Shey's</span>
+    </a>
+
+    <div class="nav-links">
+      <a href="#home" data-i18n="nav.home">Home</a>
+      <a href="#products" data-i18n="nav.products">Gallery</a>
+      <a href="#videos" data-i18n="nav.videos">Videos</a>
+      <a href="#contact" data-i18n="nav.contact">Contact</a>
+      <a href="admin.html" data-i18n="nav.admin" style="color: var(--accent);">Admin</a>
+    </div>
+
+    <div class="nav-controls">
+      <button class="icon-btn" id="langToggle" aria-label="Toggle language">EN</button>
+      <button class="icon-btn" id="themeToggle" aria-label="Toggle theme">🌙</button>
+      <button class="icon-btn hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ===== MOBILE MENU ===== -->
+  <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <a href="#home" data-i18n="nav.home">Home</a>
+    <a href="#products" data-i18n="nav.products">Products</a>
+    <a href="#services" data-i18n="nav.services">Services</a>
+    <a href="#gallery" data-i18n="nav.gallery">Gallery</a>
+    <a href="#contact" data-i18n="nav.contact">Contact</a>
+  </div>
+
+  <!-- ===== HERO SECTION ===== -->
+  <section id="home" aria-label="Hero section">
+    <div class="hero-content">
+      <div class="hero-badge" data-i18n="hero.badge">Est. 2015 — Douala, Cameroon</div>
+      <h1 data-i18n="hero.title">FORGED IN <em>FIRE.</em><br>BUILT TO LAST.</h1>
+      <p data-i18n="hero.subtitle">Premium welding products and custom fabrication services for construction, infrastructure, and bespoke projects.</p>
+      <div class="hero-buttons">
+        <a href="#products" class="btn-primary" data-i18n="hero.cta1">View Products</a>
+        <a href="#contact" class="btn-secondary" data-i18n="hero.cta2">Get a Quote</a>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="stat-card">
+        <div class="stat-number">500+</div>
+        <div class="stat-label" data-i18n="hero.stat1">Projects Completed</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">10+</div>
+        <div class="stat-label" data-i18n="hero.stat2">Years Experience</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">100%</div>
+        <div class="stat-label" data-i18n="hero.stat3">Quality Guaranteed</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">24h</div>
+        <div class="stat-label" data-i18n="hero.stat4">Fast Turnaround</div>
+      </div>
+      <div class="accent-card">
+        🔥 <span data-i18n="hero.accent">Custom fabrication for any project size</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PRODUCTS/GALLERY SECTION ===== -->
+  <section id="products" aria-label="Gallery">
+    <div class="section-label">Our Products</div>
+    <h2 class="section-title">GALLERY</h2>
+    <p class="section-subtitle">Browse our collection of welding projects and products.</p>
+    <div class="product-grid" id="productGrid"></div>
+  </section>
+
+  <!-- ===== VIDEOS SECTION ===== -->
+  <section id="videos" aria-label="Videos" style="background: var(--bg); padding: 4rem 2rem;">
+    <div class="section-label">Featured Content</div>
+    <h2 class="section-title">PROJECT VIDEOS</h2>
+    <p class="section-subtitle">Watch our welding projects in action.</p>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+      <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden;">
+        <div style="position: relative; width: 100%; padding-bottom: 56.25%;">
+          <iframe width="100%" height="100%" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen style="position: absolute; top: 0; left: 0;"></iframe>
+        </div>
+        <div style="padding: 1rem;">
+          <h3 style="font-size: 1rem; margin-bottom: 0.5rem;">Welding Process Demo</h3>
+          <p style="font-size: 0.85rem; color: var(--text2);">Replace with your video link</p>
+        </div>
+      </div>
+      <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden;">
+        <div style="position: relative; width: 100%; padding-bottom: 56.25%;">
+          <iframe width="100%" height="100%" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen style="position: absolute; top: 0; left: 0;"></iframe>
+        </div>
+        <div style="padding: 1rem;">
+          <h3 style="font-size: 1rem; margin-bottom: 0.5rem;">Project Showcase 2024</h3>
+          <p style="font-size: 0.85rem; color: var(--text2);">Replace with your video link</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CONTACT SECTION ===== -->
+  <section id="contact" aria-label="Contact information and form">
+    <div class="section-label" data-i18n="contact.label">Get in Touch</div>
+    <h2 class="section-title" data-i18n="contact.title">LET'S TALK</h2>
+
+    <div class="contact-grid">
+      <!-- Left Column: Contact Info -->
+      <div class="contact-info">
+        <p class="contact-intro" data-i18n="contact.intro">Have a project in mind? Reach out to us today. We're here to help.</p>
+
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <div class="contact-details">
+            <div class="contact-label" data-i18n="contact.location">Location</div>
+            <div class="contact-text">Douala, Littoral Region, Cameroon</div>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <div class="contact-icon">📞</div>
+          <div class="contact-details">
+            <div class="contact-label" data-i18n="contact.phone">Phone / WhatsApp</div>
+            <div class="contact-text"><a href="https://wa.me/237677123456" target="_blank">+237 677 123 456</a></div>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <div class="contact-icon">✉️</div>
+          <div class="contact-details">
+            <div class="contact-label" data-i18n="contact.email">Email</div>
+            <div class="contact-text"><a href="mailto:shop@wirnkar.cm">shop@wirnkar.cm</a></div>
+          </div>
+        </div>
+
+        <div class="social-buttons">
+          <a href="https://wa.me/237677123456" target="_blank" class="social-link whatsapp">
+            💬 <span data-i18n="contact.whatsapp">WhatsApp</span>
+          </a>
+          <a href="https://facebook.com/wirnkar" target="_blank" class="social-link facebook">
+            f <span data-i18n="contact.facebook">Facebook</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Right Column: Contact Form -->
+      <form class="contact-form" id="contactForm" novalidate>
+        <div class="form-success" id="formSuccess" role="alert" data-i18n="form.success">
+          ✅ Message sent! We'll reply within 24 hours.
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name" data-i18n="form.name">Full Name</label>
+            <input type="text" id="name" name="name" required>
+            <div class="form-error" data-i18n="form.error.name">Name is required</div>
+          </div>
+          <div class="form-group">
+            <label for="email" data-i18n="form.email">Email Address</label>
+            <input type="email" id="email" name="email" required>
+            <div class="form-error" data-i18n="form.error.email">Valid email is required</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="service" data-i18n="form.service">Service Needed</label>
+          <select id="service" name="service" required>
+            <option value="">Select a service...</option>
+            <option value="gate" data-i18n="form.service.gate">Security Gate</option>
+            <option value="grill" data-i18n="form.service.grill">Window/Door Grill</option>
+            <option value="furniture" data-i18n="form.service.furniture">Steel Furniture</option>
+            <option value="structural" data-i18n="form.service.structural">Structural Work</option>
+            <option value="repair" data-i18n="form.service.repair">Repair/Welding</option>
+            <option value="custom" data-i18n="form.service.custom">Custom Project</option>
+          </select>
+          <div class="form-error" data-i18n="form.error.service">Please select a service</div>
+        </div>
+
+        <div class="form-group">
+          <label for="message" data-i18n="form.message">Message</label>
+          <textarea id="message" name="message" required></textarea>
+          <div class="form-error" data-i18n="form.error.message">Message is required</div>
+        </div>
+
+        <button type="submit" class="btn-primary" data-i18n="form.send">Send Message</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer role="contentinfo">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo">Uncle Shey's</div>
+        <p class="footer-tagline">Premium Welding & Metal Fabrication</p>
+      </div>
+      <div class="footer-section">
+        <h3 data-i18n="footer.links">Quick Links</h3>
+        <ul>
+          <li><a href="#home" data-i18n="nav.home">Home</a></li>
+          <li><a href="#products" data-i18n="nav.products">Products</a></li>
+          <li><a href="#services" data-i18n="nav.services">Services</a></li>
+          <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
         </ul>
-    </nav>
+      </div>
+      <div class="footer-section">
+        <h3 data-i18n="footer.hours">Working Hours</h3>
+        <ul>
+          <li data-i18n="footer.weekday">Mon-Fri: 7:00 AM - 6:00 PM</li>
+          <li data-i18n="footer.saturday">Saturday: 8:00 AM - 4:00 PM</li>
+          <li data-i18n="footer.sunday">Sunday: Closed</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div data-i18n="footer.copyright">© 2026 Uncle Shey's Welding Center. All rights reserved.</div>
+      <div class="footer-credit" data-i18n="footer.credit">Premium Quality. Unmatched Excellence.</div>
+    </div>
+  </footer>
 
-    <!-- Hero Section -->
-    <section class="hero-section text-white text-center py-5">
-        <div class="container">
-            <h1 class="display-2 fw-bold" style="text-shadow: 3px 3px 6px rgba(0,0,0,0.4);">Uncle Shey's Welding Center</h1>
-            <p class="lead" style="font-size: 1.5rem; font-weight: 500;">Premium Welding & Metal Fabrication Excellence</p>
-            <p class="subtitle" style="font-size: 1.2rem; opacity: 0.95;">✨ Expert Craftsmanship | Click images to inquire on WhatsApp</p>
-        </div>
-    </section>
+  <!-- ===== JAVASCRIPT ===== -->
+  <script>
+    // ===== CONSTANTS =====
+    const WA_NUMBER = '237677123456';
 
-    <!-- Gallery Section -->
-    <section id="gallery" class="gallery-section py-5">
-        <div class="container">
-            <h2 class="text-center mb-5 section-title">Our Work</h2>
-            <div class="gallery-row">
-                <!-- Gallery items will be loaded dynamically here -->
-            </div>
+    const translations = {
+      en: {
+        'nav.home': 'Home',
+        'nav.products': 'Products',
+        'nav.services': 'Services',
+        'nav.gallery': 'Gallery',
+        'nav.contact': 'Contact',
+        'hero.badge': 'Est. 2015 — Douala, Cameroon',
+        'hero.title': 'FORGED IN <em>FIRE.</em><br>BUILT TO LAST.',
+        'hero.subtitle': 'Premium welding products and custom fabrication services for construction, infrastructure, and bespoke projects.',
+        'hero.cta1': 'View Products',
+        'hero.cta2': 'Get a Quote',
+        'hero.stat1': 'Projects Completed',
+        'hero.stat2': 'Years Experience',
+        'hero.stat3': 'Quality Guaranteed',
+        'hero.stat4': 'Fast Turnaround',
+        'hero.accent': 'Custom fabrication for any project size',
+        'products.label': 'Our Products',
+        'products.title': 'WHAT WE MAKE',
+        'products.subtitle': 'Expertly crafted steel products designed for durability and style.',
+        'products.security': 'Security Gate',
+        'products.window': 'Window Grill',
+        'products.door': 'Steel Door Frame',
+        'products.bed': 'Steel Bed Frame',
+        'products.staircase': 'Staircase Railing',
+        'products.table': 'Steel Table & Chairs',
+        'products.desc.security': 'Heavy-duty security gates with anti-theft features',
+        'products.desc.window': 'Custom window protection grills',
+        'products.desc.door': 'Reinforced steel door frames for home & commercial use',
+        'products.desc.bed': 'Durable steel bed frames built to last decades',
+        'products.desc.staircase': 'Modern and elegant staircase railings',
+        'products.desc.table': 'Contemporary steel furniture for indoor & outdoor',
+        'services.label': 'Our Services',
+        'services.title': 'WHAT WE DO',
+        'services.subtitle': 'Comprehensive welding and fabrication services to bring your vision to life.',
+        'services.fabrication': 'Custom Fabrication',
+        'services.welding': 'Welding & Repair',
+        'services.finishing': 'Surface Finishing',
+        'services.measurement': 'Site Measurement',
+        'services.delivery': 'Delivery & Installation',
+        'services.structural': 'Structural Steel',
+        'services.desc.fabrication': 'Design and build custom steel projects from scratch',
+        'services.desc.welding': 'Professional welding and repair for all steel types',
+        'services.desc.finishing': 'Painting, coating, and surface treatment services',
+        'services.desc.measurement': 'Precise site assessment and project planning',
+        'services.desc.delivery': 'Reliable delivery and professional installation',
+        'services.desc.structural': 'Heavy structural steel for buildings and bridges',
+        'gallery.label': 'Gallery',
+        'gallery.title': 'PAST PROJECTS',
+        'gallery.subtitle': 'Browse our portfolio of completed works.',
+        'contact.label': 'Get in Touch',
+        'contact.title': 'LET\'S TALK',
+        'contact.intro': 'Have a project in mind? Reach out to us today. We\'re here to help.',
+        'contact.location': 'Location',
+        'contact.phone': 'Phone / WhatsApp',
+        'contact.email': 'Email',
+        'contact.whatsapp': 'WhatsApp',
+        'contact.facebook': 'Facebook',
+        'form.name': 'Full Name',
+        'form.email': 'Email Address',
+        'form.service': 'Service Needed',
+        'form.service.gate': 'Security Gate',
+        'form.service.grill': 'Window/Door Grill',
+        'form.service.furniture': 'Steel Furniture',
+        'form.service.structural': 'Structural Work',
+        'form.service.repair': 'Repair/Welding',
+        'form.service.custom': 'Custom Project',
+        'form.message': 'Message',
+        'form.send': 'Send Message',
+        'form.success': '✅ Message sent! We\'ll reply within 24 hours.',
+        'form.error.name': 'Name is required',
+        'form.error.email': 'Valid email is required',
+        'form.error.service': 'Please select a service',
+        'form.error.message': 'Message is required',
+        'footer.tagline': 'Forged in Fire. Built to Last.',
+        'footer.links': 'Quick Links',
+        'footer.hours': 'Working Hours',
+        'footer.weekday': 'Mon-Fri: 7:00 AM - 6:00 PM',
+        'footer.saturday': 'Saturday: 8:00 AM - 4:00 PM',
+        'footer.sunday': 'Sunday: Closed',
+        'footer.copyright': '© 2026 WIRNKAR Welding Shop. All rights reserved.',
+        'footer.credit': 'Made with ❤️ in Douala, Cameroon'
+      },
+      fr: {
+        'nav.home': 'Accueil',
+        'nav.products': 'Produits',
+        'nav.services': 'Services',
+        'nav.gallery': 'Galerie',
+        'nav.contact': 'Contact',
+        'hero.badge': 'Fondée en 2015 — Douala, Cameroun',
+        'hero.title': 'FORGÉE DANS LE <em>FEU.</em><br>CONSTRUITE POUR DURER.',
+        'hero.subtitle': 'Produits de soudage haut de gamme et services de fabrication personnalisée pour la construction, les infrastructures et les projets sur mesure.',
+        'hero.cta1': 'Voir nos produits',
+        'hero.cta2': 'Demander un devis',
+        'hero.stat1': 'Projets réalisés',
+        'hero.stat2': 'Ans d\'expérience',
+        'hero.stat3': 'Qualité garantie',
+        'hero.stat4': 'Délai rapide',
+        'hero.accent': 'Fabrication personnalisée pour projets de toute taille',
+        'products.label': 'Nos produits',
+        'products.title': 'CE QUE NOUS FAISONS',
+        'products.subtitle': 'Produits en acier expertement fabriqués conçus pour la durabilité et le style.',
+        'products.security': 'Portail de sécurité',
+        'products.window': 'Grille de fenêtre',
+        'products.door': 'Cadre de porte en acier',
+        'products.bed': 'Cadre de lit en acier',
+        'products.staircase': 'Rampe d\'escalier',
+        'products.table': 'Table et chaises en acier',
+        'products.desc.security': 'Portails de sécurité robustes avec fonctionnalités anti-vol',
+        'products.desc.window': 'Grilles de fenêtre personnalisées',
+        'products.desc.door': 'Cadres de porte en acier renforcé pour usage résidentiel et commercial',
+        'products.desc.bed': 'Cadres de lit en acier durables construits pour durer des décennies',
+        'products.desc.staircase': 'Rampes d\'escalier modernes et élégantes',
+        'products.desc.table': 'Mobilier en acier contemporain pour intérieur et extérieur',
+        'services.label': 'Nos services',
+        'services.title': 'CE QUE NOUS OFFRONS',
+        'services.subtitle': 'Services complets de soudage et de fabrication pour concrétiser votre vision.',
+        'services.fabrication': 'Fabrication personnalisée',
+        'services.welding': 'Soudage et réparation',
+        'services.finishing': 'Finition de surface',
+        'services.measurement': 'Mesure du site',
+        'services.delivery': 'Livraison et installation',
+        'services.structural': 'Acier de structure',
+        'services.desc.fabrication': 'Conception et construction de projets en acier personnalisés',
+        'services.desc.welding': 'Soudage professionnel et réparation pour tous types d\'acier',
+        'services.desc.finishing': 'Services de peinture, revêtement et traitement de surface',
+        'services.desc.measurement': 'Évaluation précise du site et planification du projet',
+        'services.desc.delivery': 'Livraison fiable et installation professionnelle',
+        'services.desc.structural': 'Acier de structure lourd pour bâtiments et ponts',
+        'gallery.label': 'Galerie',
+        'gallery.title': 'PROJETS PASSÉS',
+        'gallery.subtitle': 'Parcourez notre portfolio de travaux réalisés.',
+        'contact.label': 'Nous contacter',
+        'contact.title': 'PARLONS-EN',
+        'contact.intro': 'Vous avez un projet en tête? Contactez-nous dès aujourd\'hui. Nous sommes là pour vous aider.',
+        'contact.location': 'Localisation',
+        'contact.phone': 'Téléphone / WhatsApp',
+        'contact.email': 'Email',
+        'contact.whatsapp': 'WhatsApp',
+        'contact.facebook': 'Facebook',
+        'form.name': 'Nom complet',
+        'form.email': 'Adresse email',
+        'form.service': 'Service demandé',
+        'form.service.gate': 'Portail de sécurité',
+        'form.service.grill': 'Grille fenêtre/porte',
+        'form.service.furniture': 'Mobilier en acier',
+        'form.service.structural': 'Travaux structurels',
+        'form.service.repair': 'Réparation/Soudage',
+        'form.service.custom': 'Projet sur mesure',
+        'form.message': 'Message',
+        'form.send': 'Envoyer le message',
+        'form.success': '✅ Message envoyé! Nous répondrons dans les 24 heures.',
+        'form.error.name': 'Le nom est requis',
+        'form.error.email': 'Une adresse email valide est requise',
+        'form.error.service': 'Veuillez sélectionner un service',
+        'form.error.message': 'Le message est requis',
+        'footer.tagline': 'Forgée dans le feu. Construite pour durer.',
+        'footer.links': 'Liens rapides',
+        'footer.hours': 'Heures d\'ouverture',
+        'footer.weekday': 'Lun-Ven: 7:00 - 18:00',
+        'footer.saturday': 'Samedi: 8:00 - 16:00',
+        'footer.sunday': 'Dimanche: Fermé',
+        'footer.copyright': '© 2026 WIRNKAR Soudure. Tous droits réservés.',
+        'footer.credit': 'Fait avec ❤️ à Douala, Cameroun'
+      }
+    };
 
-                </div>
-            </div>
-        </div>
-    </section>
+    const products = [
+      {
+        name_en: 'Security Gate',
+        name_fr: 'Portail de sécurité',
+        desc_en: 'Heavy-duty security gates with anti-theft features',
+        desc_fr: 'Portails de sécurité robustes avec fonctionnalités anti-vol',
+        price: '85,000',
+        tag: 'BESTSELLER'
+      },
+      {
+        name_en: 'Window Grill',
+        name_fr: 'Grille de fenêtre',
+        desc_en: 'Custom window protection grills',
+        desc_fr: 'Grilles de fenêtre personnalisées',
+        price: '35,000',
+        tag: 'POPULAR'
+      },
+      {
+        name_en: 'Steel Door Frame',
+        name_fr: 'Cadre de porte en acier',
+        desc_en: 'Reinforced steel door frames for home & commercial use',
+        desc_fr: 'Cadres de porte en acier renforcé pour usage résidentiel et commercial',
+        price: '45,000',
+        tag: ''
+      },
+      {
+        name_en: 'Steel Bed Frame',
+        name_fr: 'Cadre de lit en acier',
+        desc_en: 'Durable steel bed frames built to last decades',
+        desc_fr: 'Cadres de lit en acier durables construits pour durer des décennies',
+        price: '120,000',
+        tag: 'NEW'
+      },
+      {
+        name_en: 'Staircase Railing',
+        name_fr: 'Rampe d\'escalier',
+        desc_en: 'Modern and elegant staircase railings',
+        desc_fr: 'Rampes d\'escalier modernes et élégantes',
+        price: '65,000',
+        tag: ''
+      },
+      {
+        name_en: 'Steel Table & Chairs',
+        name_fr: 'Table et chaises en acier',
+        desc_en: 'Contemporary steel furniture for indoor & outdoor',
+        desc_fr: 'Mobilier en acier contemporain pour intérieur et extérieur',
+        price: '95,000',
+        tag: 'POPULAR'
+      }
+    ];
 
-    <!-- Videos Section -->
-    <section id="videos" class="videos-section py-5" style="background-color: #f8f9fa;">
-        <div class="container">
-            <h2 class="text-center mb-5 section-title">Project Videos</h2>
-            <div class="videos-row">
-                <!-- Video 1 -->
-                <div style="flex: 1; min-width: 0;">
-                    <div class="video-card">
-                        <div class="video-embed" style="position: relative; width: 100%; padding-bottom: 56.25%; overflow: hidden; border-radius: 8px;">
-                            <iframe width="100%" height="100%" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Welding Process Demo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" ></iframe>
-                        </div>
-                        <h5 class="video-title mt-3"><i class="fas fa-video"></i> Welding Process Demo</h5>
-                        <small class="text-muted">📝 Replace the YouTube link with your own</small>
-                    </div>
-                </div>
-                <!-- Video 2 -->
-                <div style="flex: 1; min-width: 0;">
-                    <div class="video-card">
-                        <div class="video-embed" style="position: relative; width: 100%; padding-bottom: 56.25%; overflow: hidden; border-radius: 8px;">
-                            <iframe width="100%" height="100%" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Project Showcase 2024" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
-                        </div>
-                        <h5 class="video-title mt-3"><i class="fas fa-video"></i> Project Showcase 2024</h5>
-                        <small class="text-muted">📝 Replace the YouTube link with your own</small>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section id="contact" class="contact-section py-5 bg-light">
-        <div class="container text-center">
-            <h2 class="mb-4 section-title">Get in Touch</h2>
-            <p class="mb-3">Interested in our welding services? Contact us today!</p>
-            <a href="#" id="mainWhatsAppBtn" class="btn btn-success btn-lg" style="display: none;">
-                <i class="fab fa-whatsapp"></i> Message on WhatsApp
-            </a>
-            <p class="mt-3 text-muted">Phone: <strong id="businessPhone"></strong></p>
-        </div>
-    </section>
+    const services = [
+      { name_en: 'Custom Fabrication', name_fr: 'Fabrication personnalisée', icon: '⚙️', desc_en: 'Design and build custom steel projects from scratch', desc_fr: 'Conception et construction de projets en acier personnalisés' },
+      { name_en: 'Welding & Repair', name_fr: 'Soudage et réparation', icon: '🔧', desc_en: 'Professional welding and repair for all steel types', desc_fr: 'Soudage professionnel et réparation pour tous types d\'acier' },
+      { name_en: 'Surface Finishing', name_fr: 'Finition de surface', icon: '🎨', desc_en: 'Painting, coating, and surface treatment services', desc_fr: 'Services de peinture, revêtement et traitement de surface' },
+      { name_en: 'Site Measurement', name_fr: 'Mesure du site', icon: '📐', desc_en: 'Precise site assessment and project planning', desc_fr: 'Évaluation précise du site et planification du projet' },
+      { name_en: 'Delivery & Installation', name_fr: 'Livraison et installation', icon: '🚛', desc_en: 'Reliable delivery and professional installation', desc_fr: 'Livraison fiable et installation professionnelle' },
+      { name_en: 'Structural Steel', name_fr: 'Acier de structure', icon: '🏗️', desc_en: 'Heavy structural steel for buildings and bridges', desc_fr: 'Acier de structure lourd pour bâtiments et ponts' }
+    ];
 
-    <!-- Footer -->
-    <footer class="bg-dark text-white text-center py-4" style="border-top: 3px solid #dc3545;">
-        <p style="margin: 0; font-weight: 500;">&copy; 2026 Uncle Shey's Welding Center. Premium Quality. Unmatched Excellence.</p>
-        <p style="margin: 5px 0 0 0; font-size: 0.9rem; opacity: 0.8;">All rights reserved | Expert Craftsmanship Since Day One</p>
-    </footer>
+    let currentLang = 'en';
+    let dark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
-    <!-- Bootstrap JS (downloaded locally) -->
-    <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- Gallery Management JS -->
-    <script src="js/gallery.js"></script>
-    <!-- Application JS -->
-    <script src="js/app.js"></script>
-    <!-- Theme Toggle -->
-    <script>
-        function toggleTheme() {
-            const body = document.body;
-            const themeToggle = document.querySelector('.theme-toggle i');
-            
-            body.classList.toggle('light-theme');
-            
-            if (body.classList.contains('light-theme')) {
-                localStorage.setItem('theme', 'light');
-                themeToggle.classList.remove('fa-moon');
-                themeToggle.classList.add('fa-sun');
-            } else {
-                localStorage.setItem('theme', 'dark');
-                themeToggle.classList.remove('fa-sun');
-                themeToggle.classList.add('fa-moon');
-            }
+    // ===== UTILITY FUNCTIONS =====
+    function waLink(productName) {
+      const text = `Hello Uncle Shey's Welding! I'm interested in ordering: ${productName}. Please provide more details and pricing.`;
+      return `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(text)}`;
+    }
+
+    function applyTranslations() {
+      const t = translations[currentLang];
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (t[key] !== undefined) {
+          el.innerHTML = t[key];
         }
+      });
+    }
+
+    function renderProducts() {
+      const container = document.getElementById('productGrid');
+      container.innerHTML = products.map((product, idx) => {
+        const name = currentLang === 'en' ? product.name_en : product.name_fr;
+        const desc = currentLang === 'en' ? product.desc_en : product.desc_fr;
+        const waUrl = waLink(name);
+        const tagHTML = product.tag ? `<div class="product-tag">${product.tag}</div>` : '';
         
-        // Load theme on page load
-        document.addEventListener('DOMContentLoaded', () => {
-            const savedTheme = localStorage.getItem('theme') || 'dark';
-            if (savedTheme === 'light') {
-                document.body.classList.add('light-theme');
-                document.querySelector('.theme-toggle i').classList.remove('fa-moon');
-                document.querySelector('.theme-toggle i').classList.add('fa-sun');
-            }
-        });
-    </script>
+        return `
+          <article class="product-card">
+            <div class="product-image">
+              <div class="product-image-placeholder">
+                <span>${['🚪', '🔩', '🪑', '🛏️', '📐', '🛠️'][idx]}</span>
+              </div>
+              ${tagHTML}
+              <a href="${waUrl}" target="_blank" class="wa-badge" title="Order on WhatsApp">💬</a>
+            </div>
+            <div class="product-body">
+              <div class="product-name">${name}</div>
+              <div class="product-description">${desc}</div>
+              <div class="product-footer">
+                <div>
+                  <div class="product-price">${product.price}</div>
+                  <div class="product-price-label">FCFA</div>
+                </div>
+                <a href="${waUrl}" target="_blank" class="btn-primary" style="padding: 10px 16px; font-size: 0.85rem;">Order Now</a>
+              </div>
+            </div>
+          </article>
+        `;
+      }).join('');
+    }
+
+    function renderServices() {
+      const container = document.getElementById('servicesGrid');
+      container.innerHTML = services.map(service => {
+        const name = currentLang === 'en' ? service.name_en : service.name_fr;
+        const desc = currentLang === 'en' ? service.desc_en : service.desc_fr;
+        
+        return `
+          <div class="service-card">
+            <span class="service-icon">${service.icon}</span>
+            <div class="service-name">${name}</div>
+            <div class="service-description">${desc}</div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function render() {
+      applyTranslations();
+      renderProducts();
+      renderServices();
+    }
+
+    function applyTheme() {
+      if (dark) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        document.getElementById('themeToggle').textContent = '☀️';
+        document.getElementById('themeToggle').title = 'Switch to light mode';
+      } else {
+        document.documentElement.setAttribute('data-theme', 'light');
+        document.getElementById('themeToggle').textContent = '🌙';
+        document.getElementById('themeToggle').title = 'Switch to dark mode';
+      }
+    }
+
+    // ===== EVENT LISTENERS =====
+    document.getElementById('themeToggle').addEventListener('click', () => {
+      dark = !dark;
+      applyTheme();
+    });
+
+    document.getElementById('langToggle').addEventListener('click', () => {
+      currentLang = currentLang === 'en' ? 'fr' : 'en';
+      document.getElementById('langToggle').textContent = currentLang === 'en' ? 'FR' : 'EN';
+      document.documentElement.lang = currentLang;
+      render();
+    });
+
+    document.getElementById('hamburger').addEventListener('click', () => {
+      const menu = document.getElementById('mobileMenu');
+      const isOpen = menu.classList.contains('open');
+      menu.classList.toggle('open');
+      document.getElementById('hamburger').setAttribute('aria-expanded', !isOpen);
+    });
+
+    document.querySelectorAll('.mobile-menu a').forEach(link => {
+      link.addEventListener('click', () => {
+        document.getElementById('mobileMenu').classList.remove('open');
+        document.getElementById('hamburger').setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    // ===== FORM VALIDATION =====
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const form = this;
+      const fields = {
+        name: { value: form.name.value, error: 'form.error.name', pattern: /^[\w\s]{2,}$/ },
+        email: { value: form.email.value, error: 'form.error.email', pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/ },
+        service: { value: form.service.value, error: 'form.error.service' },
+        message: { value: form.message.value, error: 'form.error.message', minLength: 1 }
+      };
+
+      // Clear previous errors
+      form.querySelectorAll('.form-group').forEach(group => group.classList.remove('invalid'));
+
+      let isValid = true;
+      Object.keys(fields).forEach(key => {
+        const field = fields[key];
+        const group = form.querySelector(`[name="${key}"]`).closest('.form-group');
+        let valid = true;
+
+        if (key === 'email') {
+          valid = field.pattern.test(field.value);
+        } else if (key === 'service') {
+          valid = field.value !== '';
+        } else if (key === 'name') {
+          valid = field.value.trim() !== '';
+        } else if (key === 'message') {
+          valid = field.value.trim() !== '';
+        }
+
+        if (!valid) {
+          group.classList.add('invalid');
+          isValid = false;
+        }
+      });
+
+      if (isValid) {
+        form.style.display = 'none';
+        const success = document.getElementById('formSuccess');
+        success.classList.add('show');
+        setTimeout(() => {
+          success.classList.remove('show');
+          form.style.display = 'flex';
+          form.reset();
+        }, 5000);
+      }
+    });
+
+    // ===== INITIALIZATION =====
+    applyTheme();
+    render();
+  </script>
+
 </body>
 </html>
