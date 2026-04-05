@@ -6,31 +6,55 @@ function displayAdminGallery() {
     
     if (!container) return;
     
+    // Update the gallery count in the heading
+    const gallerySection = container.closest('.card');
+    if (gallerySection) {
+        const heading = gallerySection.querySelector('.card-header h5');
+        if (heading) {
+            heading.innerHTML = `<i class="fas fa-images"></i> Manage Gallery Items (${items.length}/6)`;
+        }
+    }
+    
+    // Set grid layout for 3 columns
+    container.style.display = 'grid';
+    container.style.gridTemplateColumns = 'repeat(3, 1fr)';
+    container.style.gap = '2rem';
+    
     container.innerHTML = items.map(item => `
-        <div class="col-md-6 col-lg-4">
-            <div class="card admin-gallery-card">
-                <img src="${item.image}" alt="${item.title}" style="height: 200px; object-fit: cover;">
-                <div class="card-body p-2">
-                    <div class="mb-2">
-                        <label class="form-label mb-1" style="font-size: 0.85rem;">Title</label>
-                        <input type="text" class="form-control form-control-sm" value="${item.title}" id="title-${item.id}">
+        <div style="width: 100%;">
+            <div style="background: white; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); transition: all 0.3s ease; height: 100%; display: flex; flex-direction: column;">
+                <div style="position: relative; width: 100%; padding-bottom: 75%; overflow: hidden; background: #f0f0f0;">
+                    <img src="${item.image}" alt="${item.title}" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; border-radius: 12px 12px 0 0;">
+                </div>
+                <div style="padding: 1.5rem; flex-grow: 1; display: flex; flex-direction: column;">
+                    <div style="margin-bottom: 1rem;">
+                        <label style="display: block; font-weight: 600; font-size: 0.9rem; color: #333; margin-bottom: 0.5rem;">Title</label>
+                        <input type="text" style="width: 100%; padding: 0.75rem; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 8px; font-family: inherit; font-size: 0.9rem;" value="${item.title}" id="title-${item.id}">
                     </div>
-                    <div class="mb-2">
-                        <label class="form-label mb-1" style="font-size: 0.85rem;">Price</label>
-                        <input type="text" class="form-control form-control-sm" value="${item.price}" id="price-${item.id}">
+                    <div style="margin-bottom: 1rem;">
+                        <label style="display: block; font-weight: 600; font-size: 0.9rem; color: #333; margin-bottom: 0.5rem;">Price</label>
+                        <input type="text" style="width: 100%; padding: 0.75rem; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 8px; font-family: inherit; font-size: 0.9rem;" value="${item.price}" id="price-${item.id}">
                     </div>
-                    <div class="mb-2">
-                        <label class="form-label mb-1" style="font-size: 0.85rem;">Replace Image</label>
-                        <input type="file" class="form-control form-control-sm" id="image-${item.id}" accept="image/*">
+                    <div style="margin-bottom: 1rem;">
+                        <label style="display: block; font-weight: 600; font-size: 0.9rem; color: #333; margin-bottom: 0.5rem;">Replace Image</label>
+                        <input type="file" style="width: 100%; padding: 0.75rem; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 8px; font-family: inherit; font-size: 0.9rem;" id="image-${item.id}" accept="image/*">
                     </div>
-                    <div class="d-flex gap-2">
-                        <button class="btn btn-sm btn-primary flex-grow-1" onclick="updateItem(${item.id})">Update</button>
-                        <button class="btn btn-sm btn-danger flex-grow-1" onclick="deleteItem(${item.id})">Delete</button>
+                    <div style="display: flex; gap: 0.75rem; margin-top: auto;">
+                        <button style="flex-grow: 1; padding: 0.75rem; background: #FFA827; color: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; font-size: 0.9rem;" onmouseover="this.style.background='#FFB74D'" onmouseout="this.style.background='#FFA827'" onclick="updateItem(${item.id})">Update</button>
+                        <button style="flex-grow: 1; padding: 0.75rem; background: #E24B4A; color: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; font-size: 0.9rem;" onmouseover="this.style.background='#C93C3B'" onmouseout="this.style.background='#E24B4A'" onclick="deleteItem(${item.id})">Delete</button>
                     </div>
                 </div>
             </div>
         </div>
     `).join('');
+    
+    // Show message if gallery is full
+    if (items.length >= 6) {
+        const fullMessage = document.createElement('div');
+        fullMessage.style.cssText = 'grid-column: 1/-1; text-align: center; padding: 2rem; background: #fff3cd; border: 1px solid #ffc107; border-radius: 8px; color: #856404; margin-top: 1rem;';
+        fullMessage.innerHTML = '<i class="fas fa-info-circle"></i> Gallery is full (6/6 items). Delete an item to add a new one.';
+        container.appendChild(fullMessage);
+    }
 }
 
 function updateItem(id) {
@@ -73,6 +97,13 @@ function addNewItem() {
     
     if (!titleInput.value || !priceInput.value || !imageInput.files.length) {
         alert('Please fill all fields and select an image');
+        return;
+    }
+    
+    // Check if gallery is full (max 6 items)
+    const items = getGalleryItems();
+    if (items.length >= 6) {
+        alert('Gallery is full! You can only have 6 items maximum. Delete an item first.');
         return;
     }
     

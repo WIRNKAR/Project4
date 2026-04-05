@@ -405,6 +405,11 @@ footer p {
     body {
         padding-top: 70px;
     }
+    
+    /* Video Upload Grid - Stack on mobile */
+    .video-upload-grid {
+        grid-template-columns: 1fr !important;
+    }
 
     .navbar {
         padding: 1rem 0.5rem !important;
