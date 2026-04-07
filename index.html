@@ -1203,6 +1203,16 @@
 
       .product-grid {
         grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+        margin-top: 2rem;
+      }
+
+      .gallery-card {
+        border-radius: 12px;
+      }
+
+      .gallery-card img {
+        height: 220px;
       }
 
       .contact-grid {
@@ -1238,13 +1248,35 @@
     }
 
     @media (max-width: 480px) {
-      .gallery-grid {
-        grid-template-columns: 1fr;
-        grid-auto-rows: 150px;
-      }
-
       .product-grid {
         grid-template-columns: 1fr;
+        gap: 1rem;
+        margin-top: 1.5rem;
+      }
+
+      .gallery-card {
+        border-radius: 10px;
+      }
+
+      .gallery-card img {
+        height: 200px;
+      }
+
+      .gallery-card .card-info {
+        padding: 1rem;
+      }
+
+      .gallery-card h5 {
+        font-size: 0.9rem;
+      }
+
+      .price {
+        font-size: 0.85rem;
+      }
+
+      .gallery-grid {
+        grid-template-columns: 1fr;
+        grid-auto-rows: auto;
       }
 
       .gallery-item.tall {
