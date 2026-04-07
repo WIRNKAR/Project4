@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Shey Eugene's Welding Center — Premium welding and metal fabrication services in Douala, Cameroon.">
+  <meta name="description" content="Beli Metal Fabrication — Premium welding and metal fabrication services in Douala, Cameroon.">
   <meta name="keywords" content="welding, fabrication, steel, gates, grills, metalwork, Douala, Cameroon">
-  <title>Shey Eugene's Welding Center | Premium Welding Services</title>
+  <title>Beli Metal Fabrication | Premium Welding Services</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
@@ -575,6 +575,81 @@
       margin-top: 3rem;
       position: relative;
       z-index: 1;
+    }
+
+    /* Gallery Card Styling */
+    .gallery-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-shadow: var(--card-shadow);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .gallery-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--card-shadow-hover);
+      border-color: var(--accent);
+    }
+
+    .gallery-card img {
+      width: 100%;
+      height: 280px;
+      object-fit: contain;
+      padding: 12px;
+      background: var(--bg2);
+    }
+
+    .gallery-card .card-info {
+      padding: 1.5rem;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .gallery-card h5 {
+      margin: 0 0 1rem 0;
+      font-size: 1rem;
+      text-align: left;
+      color: var(--text);
+    }
+
+    .price-whatsapp {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .price {
+      font-weight: 700;
+      color: var(--accent);
+      font-size: 0.95rem;
+    }
+
+    .whatsapp-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--wa);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      font-size: 1rem;
+      border: none;
+    }
+
+    .whatsapp-icon:hover {
+      transform: scale(1.15);
+      box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
     }
 
     article.product-card {
@@ -1201,7 +1276,7 @@
   <!-- ===== NAVBAR ===== -->
   <nav role="navigation" aria-label="Main navigation">
     <a href="#home" class="logo">
-      <span class="logo-accent">Shey Eugene</span>
+      <span class="logo-accent">Beli Metal Fabrication</span>
     </a>
 
     <div class="nav-links">
@@ -1272,7 +1347,7 @@
     <div class="section-label">Our Products</div>
     <h2 class="section-title">GALLERY</h2>
     <p class="section-subtitle">Browse our collection of welding projects and products.</p>
-    <div class="product-grid" id="productGrid"></div>
+    <div class="product-grid" id="galleryContainer"></div>
   </section>
 
   <!-- ===== VIDEOS SECTION ===== -->
@@ -1402,7 +1477,7 @@
   <footer role="contentinfo">
     <div class="footer-grid">
       <div class="footer-brand">
-        <div class="footer-logo">Shey Eugene</div>
+        <div class="footer-logo">Beli Metal Fabrication</div>
         <p class="footer-tagline">Premium Welding & Metal Fabrication</p>
       </div>
       <div class="footer-section">
@@ -1424,7 +1499,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <div data-i18n="footer.copyright">© 2026 Shey Eugene's Welding Center. All rights reserved.</div>
+      <div data-i18n="footer.copyright">© 2026 Beli Metal Fabrication. All rights reserved.</div>
       <div class="footer-credit" data-i18n="footer.credit">Premium Quality. Unmatched Excellence.</div>
     </div>
   </footer>
@@ -1516,7 +1591,7 @@
         'footer.weekday': 'Mon-Fri: 7:00 AM - 6:00 PM',
         'footer.saturday': 'Saturday: 8:00 AM - 4:00 PM',
         'footer.sunday': 'Sunday: Closed',
-        'footer.copyright': '© 2026 Shey Eugene\'s Welding Center. All rights reserved.',
+        'footer.copyright': '© 2026 Beli Metal Fabrication. All rights reserved.',
         'footer.credit': 'Made with ❤️ in Douala, Cameroon'
       },
       fr: {
@@ -1598,7 +1673,7 @@
         'footer.weekday': 'Lun-Ven: 7:00 - 18:00',
         'footer.saturday': 'Samedi: 8:00 - 16:00',
         'footer.sunday': 'Dimanche: Fermé',
-        'footer.copyright': '© 2026 Shey Eugene\'s Welding Center. Tous droits réservés.',
+        'footer.copyright': '© 2026 Beli Metal Fabrication. Tous droits réservés.',
         'footer.credit': 'Fait avec ❤️ à Douala, Cameroun'
       }
     };
@@ -1668,7 +1743,7 @@
 
     // ===== UTILITY FUNCTIONS =====
     function waLink(productName) {
-      const text = `Hello Shey Eugene's Welding! I'm interested in ordering: ${productName}. Please provide more details and pricing.`;
+      const text = `Hello Beli Metal Fabrication! I'm interested in ordering: ${productName}. Please provide more details and pricing.`;
       return `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(text)}`;
     }
 
@@ -1688,7 +1763,7 @@
       const container = document.getElementById('productGrid');
       
       container.innerHTML = galleryItems.map((item) => {
-        const waUrl = `https://wa.me/${WA_NUMBER.replace(/\D/g, '')}?text=${encodeURIComponent(`Hello Shey Eugene's Welding! I'm interested in: ${item.title} (FCFA ${item.price}). Please provide more details.`)}`;
+        const waUrl = `https://wa.me/${WA_NUMBER.replace(/\D/g, '')}?text=${encodeURIComponent(`Hello Beli Metal Fabrication! I'm interested in: ${item.title} (FCFA ${item.price}). Please provide more details.`)}`;
         
         return `
           <article class="product-card">

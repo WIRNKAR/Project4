@@ -1,4 +1,11 @@
-// Admin Video Management
+// Admin Video Management with Enhanced Upload Features
+
+let videoUploadProgress = {
+    fileName: null,
+    progress: 0,
+    total: 0,
+    isUploading: false
+};
 
 function displayAdminVideos() {
     getVideos().then(videos => {
@@ -9,6 +16,11 @@ function displayAdminVideos() {
         container.style.display = 'grid';
         container.style.gridTemplateColumns = 'repeat(2, 1fr)';
         container.style.gap = '2rem';
+        
+        if (videos.length === 0) {
+            container.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 2rem; background: #f8f9fa; border-radius: 8px; color: #666;">No videos added yet. Add your first video above.</div>';
+            return;
+        }
         
         container.innerHTML = videos.map(video => {
             let previewHtml;
@@ -68,27 +80,49 @@ function updateVideoClick(id) {
     const titleInput = document.getElementById(`vtitle-${id}`);
     const descInput = document.getElementById(`vdesc-${id}`);
     const urlInput = document.getElementById(`vurl-${id}`);
+    const updateBtn = event.target;
     
     if (!titleInput || !descInput || !urlInput) return;
     
-    const title = titleInput.value;
-    const description = descInput.value;
-    const videoUrl = urlInput.value;
+    const title = titleInput.value.trim();
+    const description = descInput.value.trim();
+    const videoUrl = urlInput.value.trim();
     
-    if (!title || !videoUrl) {
-        alert('Please fill in title and video source');
+    if (!title) {
+        showToast('Please enter a video title', 'danger');
         return;
     }
     
+    if (!videoUrl) {
+        showToast('Please provide a video source', 'danger');
+        return;
+    }
+    
+    // Show loading state
+    updateBtn.disabled = true;
+    updateBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Updating...';
+    const originalText = updateBtn.innerHTML;
+    
     updateVideo(id, title, description, videoUrl, true).then(() => {
-        showToast('Video updated successfully!', 'success');
+        showToast('✓ Video updated successfully! Changes applied immediately.', 'success');
+        
+        // Reset button
+        updateBtn.disabled = false;
+        updateBtn.innerHTML = '<i class="fas fa-check"></i> Update';
+        
+        setTimeout(() => {
+            updateBtn.innerHTML = '<i class="fas fa-edit"></i> Update';
+        }, 2000);
+        
         displayAdminVideos();
         if (document.getElementById('videosContainer')) {
             displayVideos();
         }
     }).catch(err => {
         console.error('Error updating video:', err);
-        alert('Error updating video: ' + err.message);
+        showToast('Error updating video: ' + err.message, 'danger');
+        updateBtn.disabled = false;
+        updateBtn.innerHTML = '<i class="fas fa-edit"></i> Update';
     });
 }
 
@@ -112,35 +146,66 @@ function addNewVideo() {
     const descInput = document.getElementById('newVideoDesc');
     const urlInput = document.getElementById('newVideoUrl');
     const fileInput = document.getElementById('newVideoFile');
+    const uploadBtn = event.target;
     
     const title = titleInput.value.trim();
     const description = descInput.value.trim();
     const url = urlInput.value.trim();
     
+    // Validation
     if (!title) {
-        alert('Please enter a video title');
+        showToast('Please enter a video title', 'danger');
         return;
     }
     
-    // Handle file upload
+    // Handle file upload or YouTube URL
     if (fileInput && fileInput.files.length > 0) {
         const file = fileInput.files[0];
+        
+        // Validate file type
         if (!file.type.startsWith('video/')) {
-            alert('Please select a valid video file');
+            showToast('Please select a valid video file (MP4, WebM, etc.)', 'danger');
             return;
         }
         
+        // Validate file size (max 100MB for video)
+        const maxSize = 100 * 1024 * 1024;
+        if (file.size > maxSize) {
+            showToast('Video file is too large. Maximum size is 100MB. Please compress your video.', 'warning');
+            return;
+        }
+        
+        // Show loading state
+        uploadBtn.disabled = true;
+        videoUploadProgress.isUploading = true;
+        videoUploadProgress.fileName = file.name;
+        const originalText = uploadBtn.innerHTML;
+        uploadBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Uploading: ${Math.round(file.size / 1024 / 1024)}MB...`;
+        
         const reader = new FileReader();
+        
+        reader.onprogress = (event) => {
+            if (event.lengthComputable) {
+                videoUploadProgress.progress = Math.round((event.loaded / event.total) * 100);
+                uploadBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Uploading ${videoUploadProgress.progress}%...`;
+            }
+        };
+        
         reader.onload = async function(e) {
             try {
                 await addVideo(title, description, e.target.result, true);
-                showToast('Video added successfully!', 'success');
+                showToast('✓ Video uploaded successfully! Now visible to all users.', 'success');
                 
                 // Reset form
                 titleInput.value = '';
                 descInput.value = '';
                 urlInput.value = '';
                 fileInput.value = '';
+                
+                // Reset button
+                uploadBtn.disabled = false;
+                uploadBtn.innerHTML = originalText;
+                videoUploadProgress.isUploading = false;
                 
                 // Refresh displays
                 displayAdminVideos();
@@ -149,20 +214,44 @@ function addNewVideo() {
                 }
             } catch (err) {
                 console.error('Error adding video:', err);
-                alert('Error adding video: ' + err.message);
+                showToast('Error uploading video: ' + err.message, 'danger');
+                uploadBtn.disabled = false;
+                uploadBtn.innerHTML = originalText;
+                videoUploadProgress.isUploading = false;
             }
         };
+        
+        reader.onerror = () => {
+            showToast('Error reading file. Please try again.', 'danger');
+            uploadBtn.disabled = false;
+            uploadBtn.innerHTML = originalText;
+            videoUploadProgress.isUploading = false;
+        };
+        
         reader.readAsDataURL(file);
     } else if (url) {
-        // Handle YouTube URL
+        // Validate YouTube URL format
+        if (!isValidYoutubeUrl(url)) {
+            showToast('Please enter a valid YouTube URL (e.g., https://www.youtube.com/watch?v=...)', 'danger');
+            return;
+        }
+        
+        // Show loading state
+        uploadBtn.disabled = true;
+        uploadBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Adding Video...';
+        
         addVideo(title, description, url, false).then(() => {
-            showToast('Video added successfully!', 'success');
+            showToast('✓ YouTube video added successfully! Now visible to all users.', 'success');
             
             // Reset form
             titleInput.value = '';
             descInput.value = '';
             urlInput.value = '';
             if (fileInput) fileInput.value = '';
+            
+            // Reset button
+            uploadBtn.disabled = false;
+            uploadBtn.innerHTML = '<i class="fas fa-video"></i> Add Video';
             
             // Refresh displays
             displayAdminVideos();
@@ -171,11 +260,19 @@ function addNewVideo() {
             }
         }).catch(err => {
             console.error('Error adding video:', err);
-            alert('Error adding video: ' + err.message);
+            showToast('Error adding video: ' + err.message, 'danger');
+            uploadBtn.disabled = false;
+            uploadBtn.innerHTML = '<i class="fas fa-video"></i> Add Video';
         });
     } else {
-        alert('Please upload a video file or enter a YouTube URL');
+        showToast('Please upload a video file or enter a YouTube URL', 'warning');
     }
+}
+
+// Validate YouTube URL
+function isValidYoutubeUrl(url) {
+    const youtubeRegex = /^(https?:\/\/)?(www\.)?(youtube|youtu|youtube-nocookie)\.(com|be)\//;
+    return youtubeRegex.test(url);
 }
 
 function showToast(message, type) {

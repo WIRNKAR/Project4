@@ -191,6 +191,134 @@
             margin: 0.5rem 0;
         }
         
+        /* Upload feedback styles */
+        .upload-progress {
+            width: 100%;
+            height: 6px;
+            background: #e9ecef;
+            border-radius: 3px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+        
+        .upload-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent), var(--accent2));
+            width: 0%;
+            transition: width 0.3s ease;
+            border-radius: 3px;
+            box-shadow: 0 0 10px rgba(255, 168, 39, 0.5);
+        }
+        
+        .upload-status {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin: 0.5rem 0;
+        }
+        
+        .upload-status.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .upload-status.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .upload-status.info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        
+        .upload-status.warning {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeeba;
+        }
+        
+        .btn-disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        .upload-info-box {
+            background: #f0f8ff;
+            border-left: 4px solid var(--accent);
+            padding: 1rem;
+            border-radius: 6px;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+        }
+        
+        .upload-info-box i {
+            color: var(--accent);
+            margin-right: 0.5rem;
+        }
+        
+        .file-input-label {
+            display: block;
+            padding: 2rem;
+            border: 2px dashed var(--accent);
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: rgba(255, 168, 39, 0.05);
+        }
+        
+        .file-input-label:hover {
+            border-color: var(--accent2);
+            background: rgba(255, 168, 39, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .file-input-label.active {
+            border-color: var(--accent);
+            background: rgba(255, 168, 39, 0.15);
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .fa-spinner {
+            animation: spin 1s linear infinite;
+        }
+        
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-left: 0.5rem;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        .status-indicator.green {
+            background: #28a745;
+        }
+        
+        .status-indicator.orange {
+            background: #ffc107;
+        }
+        
+        .status-indicator.red {
+            background: #e74c3c;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
         @media (max-width: 768px) {
             #adminGalleryContainer {
                 grid-template-columns: repeat(2, 1fr);
@@ -255,21 +383,27 @@
             <!-- Upload Section -->
             <div class="card">
                 <div class="card-header">
-                    <h5 class="mb-0"><i class="fas fa-plus-circle"></i> Add New Item</h5>
+                    <h5 class="mb-0"><i class="fas fa-image"></i> Upload New Image</h5>
+                    <small style="color: rgba(255,255,255,0.8); display: block; margin-top: 0.5rem;">Add a new item to your gallery</small>
                 </div>
                 <div class="card-body">
                     <div class="mb-3">
                         <label for="newItemTitle" class="form-label">Item Title</label>
                         <input type="text" class="form-control" id="newItemTitle" placeholder="e.g., Stainless Steel Gate">
+                        <small class="text-muted">Describe your welding project</small>
                     </div>
                     <div class="mb-3">
                         <label for="newItemPrice" class="form-label">Price (FCFA)</label>
                         <input type="text" class="form-control" id="newItemPrice" placeholder="e.g., 50,000">
+                        <small class="text-muted">Enter the price for this project</small>
                     </div>
                     <div class="mb-3">
-                        <label for="newItemImage" class="form-label">Select Image</label>
+                        <label for="newItemImage" class="form-label">Select Image File</label>
                         <input type="file" class="form-control" id="newItemImage" accept="image/*">
-                        <small class="text-muted">Upload a new image for the gallery</small>
+                        <small class="text-muted">Supported formats: JPG, PNG, WebP (Max 5MB)</small>
+                    </div>
+                    <div style="background: #f0f8ff; border-left: 4px solid #FFA827; padding: 1rem; border-radius: 6px; margin-bottom: 1rem; font-size: 0.9rem;">
+                        <i class="fas fa-info-circle" style="color: #FFA827;"></i> Note: If gallery is full, the oldest item will be automatically replaced
                     </div>
                     <button class="btn btn-primary w-100" onclick="addNewItem()"><i class="fas fa-image"></i> Add Item to Gallery</button>
                 </div>
@@ -279,7 +413,8 @@
         <!-- Gallery Management Section -->
         <div class="card">
             <div class="card-header">
-                <h5 class="mb-0"><i class="fas fa-images"></i> Manage Gallery Items (6 Items Max)</h5>
+                <h5 class="mb-0"><i class="fas fa-images"></i> Manage Gallery Items</h5>
+                <small style="color: rgba(255,255,255,0.8); display: block; margin-top: 0.5rem;">Edit, update, or delete existing gallery items</small>
             </div>
             <div class="card-body">
                 <div id="adminGalleryContainer">
@@ -291,30 +426,52 @@
         <!-- Video Upload Section -->
         <div class="card">
             <div class="card-header">
-                <h5 class="mb-0"><i class="fas fa-plus-circle"></i> Add New Video</h5>
+                <h5 class="mb-0"><i class="fas fa-video"></i> Upload New Video</h5>
+                <small style="color: rgba(255,255,255,0.8); display: block; margin-top: 0.5rem;">Add videos to showcase your welding projects</small>
             </div>
             <div class="card-body">
                 <div class="mb-3">
                     <label for="newVideoTitle" class="form-label">Video Title</label>
                     <input type="text" class="form-control" id="newVideoTitle" placeholder="e.g., Custom Gate Welding Process">
+                    <small class="text-muted">Give your video a meaningful title</small>
                 </div>
                 <div class="mb-3">
                     <label for="newVideoDesc" class="form-label">Video Description</label>
                     <textarea class="form-control" id="newVideoDesc" placeholder="Describe your welding project..." rows="3"></textarea>
+                    <small class="text-muted">Explain what viewers will see in this video</small>
                 </div>
-                <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem;">
-                    <h6 style="margin-bottom: 1rem; color: var(--text); font-weight: 600;">Upload Video File</h6>
-                    <label for="newVideoFile" class="form-label">Select Video File (MP4, WebM, etc.)</label>
+                
+                <!-- Option 1: Upload Local File -->
+                <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem; border: 2px dashed #FFA827;">
+                    <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                        <i class="fas fa-file-video" style="font-size: 1.5rem; color: #FFA827; margin-right: 0.75rem;"></i>
+                        <h6 style="margin: 0; color: var(--text); font-weight: 600;">Option 1: Upload Video File</h6>
+                    </div>
+                    <label for="newVideoFile" class="form-label">Select Video File from Your Device</label>
                     <input type="file" class="form-control" id="newVideoFile" accept="video/*">
-                    <small class="text-muted">Upload a video file from your device</small>
+                    <small class="text-muted">Supported: MP4, WebM, OGG (Max 100MB) • File will be stored and played directly on your website</small>
                 </div>
-                <p style="text-align: center; color: var(--text2); margin: 1rem 0;"><strong>OR</strong></p>
-                <div>
-                    <label for="newVideoUrl" class="form-label">YouTube URL (Optional)</label>
+                
+                <div style="text-align: center; color: var(--text2); margin: 1.5rem 0; font-weight: 600;">
+                    OR
+                </div>
+                
+                <!-- Option 2: YouTube Link -->
+                <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem; border: 2px dashed #FFA827;">
+                    <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                        <i class="fab fa-youtube" style="font-size: 1.5rem; color: #e74c3c; margin-right: 0.75rem;"></i>
+                        <h6 style="margin: 0; color: var(--text); font-weight: 600;">Option 2: Embed from YouTube</h6>
+                    </div>
+                    <label for="newVideoUrl" class="form-label">YouTube Video URL</label>
                     <input type="text" class="form-control" id="newVideoUrl" placeholder="https://www.youtube.com/watch?v=... or https://youtu.be/...">
-                    <small class="text-muted">Paste your YouTube video link here (if not uploading a file)</small>
+                    <small class="text-muted">Paste your YouTube video link here • Video will be embedded and played from YouTube</small>
                 </div>
-                <button class="btn btn-primary w-100" onclick="addNewVideo()" style="margin-top: 1.5rem;"><i class="fas fa-video"></i> Add Video</button>
+                
+                <button class="btn btn-primary w-100" onclick="addNewVideo()" style="padding: 0.85rem;"><i class="fas fa-video"></i> Add Video Now</button>
+                
+                <div style="background: #d4edda; border-left: 4px solid #28a745; padding: 1rem; border-radius: 6px; margin-top: 1rem; font-size: 0.9rem;">
+                    <i class="fas fa-check-circle" style="color: #28a745;"></i> <strong>Real-time Display:</strong> Videos are instantly visible to all your website visitors
+                </div>
             </div>
         </div>
 
@@ -322,6 +479,7 @@
         <div class="card">
             <div class="card-header">
                 <h5 class="mb-0"><i class="fas fa-film"></i> Manage Videos</h5>
+                <small style="color: rgba(255,255,255,0.8); display: block; margin-top: 0.5rem;">Edit, update, or delete existing videos on your website</small>
             </div>
             <div class="card-body">
                 <div id="adminVideosContainer">
@@ -329,55 +487,6 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    <!-- Footer -->
-    <footer>
-        <p style="font-size: 1.1rem; font-weight: 700; color: var(--accent);">Shey Eugene's Welding Center</p>
-        <p>Premium welding and metal fabrication services</p>
-        <p>Email: <a href="mailto:shop@sheyeugene.com">shop@sheyeugene.com</a> | WhatsApp: <a href="https://wa.me/237676866995">+237 676 866 995</a></p>
-        <div class="divider"></div>
-        <p>&copy; 2026 Shey Eugene's Welding Center. All rights reserved.</p>
-    </footer>
-
-    <!-- Bootstrap JS (downloaded locally) -->
-    <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- Gallery Management JS -->
-    <script src="js/gallery.js"></script>
-    <!-- Admin Gallery JS -->
-    <script src="js/admin-gallery.js"></script>
-    <!-- Videos JS -->
-    <script src="js/videos.js"></script>
-    <!-- Admin Videos JS -->
-    <script src="js/admin-videosewVideoUrl" class="form-label">YouTube URL</label>
-                    <input type="text" class="form-control" id="newVideoUrl" placeholder="https://www.youtube.com/watch?v=... or https://youtu.be/...">
-                    <small class="text-muted">Paste your YouTube video link here</small>
-                </div>
-                <button class="btn btn-primary w-100" onclick="addNewVideo()"><i class="fas fa-video"></i> Add Video</button>
-            </div>
-        </div>
-
-        <!-- Video Management Section -->
-        <div class="card">
-            <div class="card-header">
-                <h5 class="mb-0"><i class="fas fa-film"></i> Manage Videos</h5>
-            </div>
-            <div class="card-body">
-                <div id="adminVideosContainer">
-                    <!-- Videos loaded here -->
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Footer -->
-    <footer>
-        <p style="font-size: 1.1rem; font-weight: 700; color: var(--accent);">Shey Eugene's Welding Center</p>
-        <p>Premium welding and metal fabrication services</p>
-        <p>Email: <a href="mailto:shop@sheyeugene.com">shop@sheyeugene.com</a> | WhatsApp: <a href="https://wa.me/237676866995">+237 676 866 995</a></p>
-        <div class="divider"></div>
-        <p>&copy; 2026 Shey Eugene's Welding Center. All rights reserved.</p>
-    </footer>
 
     <!-- Bootstrap JS (downloaded locally) -->
     <script src="bootstrap/js/bootstrap.bundle.min.js"></script>

@@ -1,4 +1,11 @@
-// Admin Gallery Management
+// Admin Gallery Management with Enhanced Upload Features
+
+// Track upload progress
+let uploadProgress = {
+    currentFile: null,
+    progress: 0,
+    total: 0
+};
 
 function displayAdminGallery() {
     const items = getGalleryItems();
@@ -11,7 +18,9 @@ function displayAdminGallery() {
     if (gallerySection) {
         const heading = gallerySection.querySelector('.card-header h5');
         if (heading) {
-            heading.innerHTML = `<i class="fas fa-images"></i> Manage Gallery Items (${items.length}/6)`;
+            const maxItems = 6;
+            const statusColor = items.length >= maxItems ? '#e74c3c' : items.length >= 4 ? '#f39c12' : '#27ae60';
+            heading.innerHTML = `<i class="fas fa-images"></i> Manage Gallery Items (${items.length}/${maxItems}) <span style="color: ${statusColor}; font-size: 0.9rem; margin-left: 1rem;">●</span>`;
         }
     }
     
@@ -94,29 +103,100 @@ function addNewItem() {
     const titleInput = document.getElementById('newItemTitle');
     const priceInput = document.getElementById('newItemPrice');
     const imageInput = document.getElementById('newItemImage');
+    const uploadBtn = event.target;
     
-    if (!titleInput.value || !priceInput.value || !imageInput.files.length) {
-        alert('Please fill all fields and select an image');
+    // Validation
+    if (!titleInput.value.trim()) {
+        showToast('Please enter an item title', 'danger');
+        return;
+    }
+    if (!priceInput.value.trim()) {
+        showToast('Please enter a price', 'danger');
+        return;
+    }
+    if (!imageInput.files.length) {
+        showToast('Please select an image', 'danger');
+        return;
+    }
+    
+    const file = imageInput.files[0];
+    
+    // Validate file type
+    if (!file.type.startsWith('image/')) {
+        showToast('Please select a valid image file (JPG, PNG, etc.)', 'danger');
+        return;
+    }
+    
+    // Validate file size (max 5MB)
+    const maxSize = 5 * 1024 * 1024;
+    if (file.size > maxSize) {
+        showToast('Image file is too large. Maximum size is 5MB.', 'danger');
         return;
     }
     
     // Check if gallery is full (max 6 items)
     const items = getGalleryItems();
     if (items.length >= 6) {
-        alert('Gallery is full! You can only have 6 items maximum. Delete an item first.');
-        return;
+        const replaceOldest = confirm('Gallery is full (6/6 items). Would you like to replace the oldest item to add this new one?');
+        if (replaceOldest && items.length > 0) {
+            // Remove the oldest item (first one)
+            deleteGalleryItem(items[0].id);
+            showToast('Oldest item removed to make space', 'info');
+        } else {
+            showToast('Please delete an item first to add a new one', 'warning');
+            return;
+        }
     }
     
+    // Show loading state
+    uploadBtn.disabled = true;
+    uploadBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Uploading...';
+    
     const reader = new FileReader();
-    reader.onload = (e) => {
-        addGalleryItem(titleInput.value, priceInput.value, e.target.result);
-        showToast('Item added successfully!', 'success');
-        titleInput.value = '';
-        priceInput.value = '';
-        imageInput.value = '';
-        displayAdminGallery();
+    reader.onprogress = (event) => {
+        if (event.lengthComputable) {
+            uploadProgress.progress = Math.round((event.loaded / event.total) * 100);
+            updateUploadProgressUI();
+        }
     };
-    reader.readAsDataURL(imageInput.files[0]);
+    
+    reader.onload = (e) => {
+        try {
+            addGalleryItem(titleInput.value.trim(), priceInput.value.trim(), e.target.result);
+            
+            // Reset form
+            titleInput.value = '';
+            priceInput.value = '';
+            imageInput.value = '';
+            
+            // Reset button
+            uploadBtn.disabled = false;
+            uploadBtn.innerHTML = '<i class="fas fa-image"></i> Add Item to Gallery';
+            
+            showToast('✓ Item added successfully! Gallery updated.', 'success');
+            displayAdminGallery();
+            syncGalleryToMainPage();
+        } catch (error) {
+            console.error('Error adding item:', error);
+            showToast('Error adding item: ' + error.message, 'danger');
+            uploadBtn.disabled = false;
+            uploadBtn.innerHTML = '<i class="fas fa-image"></i> Add Item to Gallery';
+        }
+    };
+    
+    reader.onerror = () => {
+        showToast('Error reading file. Please try again.', 'danger');
+        uploadBtn.disabled = false;
+        uploadBtn.innerHTML = '<i class="fas fa-image"></i> Add Item to Gallery';
+    };
+    
+    reader.readAsDataURL(file);
+}
+
+// Update upload progress UI
+function updateUploadProgressUI() {
+    // This can be used to show a progress bar if needed
+    console.log('Upload progress:', uploadProgress.progress + '%');
 }
 
 function showToast(message, type) {
@@ -126,6 +206,15 @@ function showToast(message, type) {
     toast.style.zIndex = '9999';
     document.body.appendChild(toast);
     setTimeout(() => toast.remove(), 3000);
+}
+
+// Sync gallery updates to main page if it's open
+function syncGalleryToMainPage() {
+    // Check if this is being called from the main page
+    const galleryContainer = document.querySelector('.gallery-row');
+    if (galleryContainer && typeof displayGallery === 'function') {
+        displayGallery(); // Call the main page gallery display function
+    }
 }
 
 // Load on page load
