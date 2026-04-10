@@ -67,25 +67,24 @@ function loadGallery() {
     galleryContainer.innerHTML = '';
 
     gallery.forEach((item, index) => {
-        const col = document.createElement('div');
-        col.className = 'col-md-6 col-lg-4';
-        
         const card = document.createElement('div');
         card.className = 'gallery-card';
         card.onclick = () => handleImageClick(item);
 
         card.innerHTML = `
             <img src="${item.image}" alt="${item.title || 'Welding Work'}">
-            <div class="gallery-overlay">
-                <div class="gallery-info">
-                    <h5>${item.title || 'Our Work'}</h5>
-                    <p>Click to inquire on WhatsApp</p>
+            <div class="card-info">
+                <h5>${item.title || 'Our Work'}</h5>
+                <div class="price-whatsapp">
+                    <span class="price">Inquire</span>
+                    <a href="#" class="whatsapp-icon" onclick="handleImageClick(item); return false;">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
                 </div>
             </div>
         `;
 
-        col.appendChild(card);
-        galleryContainer.appendChild(col);
+        galleryContainer.appendChild(card);
     });
 }
 
@@ -116,25 +115,23 @@ function loadVideos() {
     videosContainer.innerHTML = '';
 
     videos.forEach((video) => {
-        const col = document.createElement('div');
-        col.className = 'col-md-6 col-lg-4';
-        
         const videoCard = document.createElement('div');
-        videoCard.className = 'video-card';
+        videoCard.className = 'gallery-card';
         
         videoCard.innerHTML = `
             <div class="video-thumbnail" onclick="playVideo('${video.id}')">
-                <img src="${video.thumbnail}" alt="${video.title}">
-                <div class="play-button">
+                <img src="${video.thumbnail}" alt="${video.title}" style="width: 100%; height: 100%; object-fit: cover;">
+                <div class="play-button" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 3rem; color: white; cursor: pointer;">
                     <i class="fas fa-play"></i>
                 </div>
             </div>
-            <h5 class="video-title mt-3">${video.title}</h5>
-            <small class="text-muted">Replace in Admin Panel</small>
+            <div class="card-info">
+                <h5>${video.title}</h5>
+                <p style="font-size: 0.8rem; color: #999;">Video content</p>
+            </div>
         `;
 
-        col.appendChild(videoCard);
-        videosContainer.appendChild(col);
+        videosContainer.appendChild(videoCard);
     });
 }
 
