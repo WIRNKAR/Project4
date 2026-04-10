@@ -2,501 +2,1204 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard - Shey Eugene's Welding Center</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no">
+    <title>Admin Portal - Metal Fabrication</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Bootstrap CSS (downloaded locally) -->
-    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/style.css">
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         :root {
-            --bg: #E0E0E0;
-            --bg2: #D3D3D3;
+            --primary: #FFA827;
+            --primary-light: #FFB74D;
+            --primary-dark: #FF8C00;
+            --bg: #F5F5F5;
             --surface: #FFFFFF;
             --text: #333333;
-            --text2: #666666;
-            --accent: #FFA827;
-            --accent2: #FFB74D;
-            --border: rgba(0, 0, 0, 0.10);
-            --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            --text-light: #666666;
+            --border: #E0E0E0;
+            --success: #36D896;
+            --error: #FF4D6A;
+            --warning: #FFB02E;
+            --info: #4DB8FF;
         }
-        
-        body {
-            background-color: var(--bg);
-            font-family: 'DM Sans', sans-serif;
-            color: var(--text);
-        }
-        
-        .navbar {
-            background: linear-gradient(135deg, var(--bg) 0%, var(--bg2) 100%) !important;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-            border-bottom: 1px solid var(--border);
-        }
-        
-        .navbar-brand {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--accent) !important;
-        }
-        
-        .navbar-brand i {
-            margin-right: 0.5rem;
-        }
-        
-        .navbar-nav .nav-link {
-            color: var(--text) !important;
-            font-weight: 600;
-            text-transform: uppercase;
-            font-size: 0.9rem;
-        }
-        
-        .navbar-nav .nav-link:hover {
-            color: var(--accent) !important;
-        }
-        
-        .admin-heading {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 3.5rem;
-            color: var(--text);
-            text-align: center;
-            margin: 3rem 0 1rem 0;
-            letter-spacing: 2px;
-            text-shadow: 0 0 20px rgba(255, 168, 39, 0.15);
-        }
-        
-        .admin-subheading {
-            text-align: center;
-            color: var(--text2);
-            font-size: 1.1rem;
-            margin-bottom: 3rem;
-            font-weight: 500;
-        }
-        
-        .card {
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            background: var(--surface);
-            box-shadow: var(--card-shadow);
-            margin-bottom: 3rem;
-            transition: all 0.3s ease;
-        }
-        
-        .card:hover {
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
-        }
-        
-        .card-header {
-            background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%) !important;
-            color: white !important;
-            border-bottom: 1px solid var(--border);
-            border-radius: 12px 12px 0 0;
-            padding: 1.5rem;
-        }
-        
-        .card-body {
-            padding: 2rem;
-        }
-        
-        .settings-row {
-            margin-bottom: 3rem;
-        }
-        
-        .form-label {
-            font-weight: 600;
-            color: var(--text);
-            margin-bottom: 0.75rem;
-        }
-        
-        .form-control {
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 0.75rem;
-            color: var(--text);
-        }
-        
-        .form-control:focus {
-            border-color: var(--accent);
-            box-shadow: 0 0 0 3px rgba(255, 168, 39, 0.15);
-        }
-        
-        .btn-primary {
-            background: var(--accent) !important;
-            border: none;
-            font-weight: 600;
-            border-radius: 8px;
-            padding: 0.85rem 1.75rem;
-            transition: all 0.3s ease;
-        }
-        
-        .btn-primary:hover {
-            background: var(--accent2) !important;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(255, 168, 39, 0.3);
-        }
-        
-        #adminGalleryContainer {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2.5rem;
-            padding: 2rem 0;
-            margin: 0 auto;
-            max-width: 1200px;
-        }
-        
-        #adminVideosContainer {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 2.5rem;
-            padding: 2rem 0;
-            margin: 0 auto;
-            max-width: 1200px;
-        }
-        
-        .admin-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-        
-        footer {
-            background: linear-gradient(180deg, var(--bg2) 0%, var(--bg) 100%);
-            color: var(--text);
-            border-top: 1px solid var(--border);
-            padding: 3rem 2rem;
-            text-align: center;
-            margin-top: 4rem;
-        }
-        
-        footer p {
-            margin: 0.5rem 0;
-            font-size: 0.95rem;
-        }
-        
-        footer a {
-            color: var(--accent);
-            text-decoration: none;
-            font-weight: 600;
-        }
-        
-        footer a:hover {
-            text-decoration: underline;
-        }
-        
-        .divider {
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--accent), transparent);
-            margin: 0.5rem 0;
-        }
-        
-        /* Upload feedback styles */
-        .upload-progress {
+
+        html, body {
             width: 100%;
-            height: 6px;
-            background: #e9ecef;
-            border-radius: 3px;
-            overflow: hidden;
-            margin: 1rem 0;
-        }
-        
-        .upload-progress-bar {
             height: 100%;
-            background: linear-gradient(90deg, var(--accent), var(--accent2));
-            width: 0%;
-            transition: width 0.3s ease;
-            border-radius: 3px;
-            box-shadow: 0 0 10px rgba(255, 168, 39, 0.5);
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            -webkit-font-smoothing: antialiased;
+            -webkit-tap-highlight-color: transparent;
+            overflow-x: hidden;
         }
-        
-        .upload-status {
-            display: inline-block;
-            padding: 0.5rem 1rem;
-            border-radius: 6px;
-            font-size: 0.85rem;
+
+        /* ============= TOPNAV ============= */
+        .topnav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .topnav-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            flex-shrink: 0;
+        }
+
+        .topnav-brand i {
+            font-size: 1.3rem;
+        }
+
+        .topnav-actions {
+            display: flex;
+            gap: 0.5rem;
+            flex-shrink: 0;
+        }
+
+        .btn-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            border: none;
+            background: var(--bg);
+            color: var(--text);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            transition: all 0.2s ease;
+            -webkit-appearance: none;
+        }
+
+        .btn-icon:active {
+            background: var(--border);
+            transform: scale(0.9);
+        }
+
+        /* ============= CONTAINER ============= */
+        .container {
+            width: 100%;
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+
+        @media (min-width: 600px) {
+            .container {
+                max-width: 800px;
+                padding: 1.5rem;
+            }
+        }
+
+        /* ============= CARDS ============= */
+        .card {
+            background: var(--surface);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .card-header h2 {
+            font-size: 1rem;
             font-weight: 600;
-            margin: 0.5rem 0;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
-        
-        .upload-status.success {
-            background: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
+
+        .card-header p {
+            font-size: 0.8rem;
+            opacity: 0.9;
+            margin: 0.4rem 0 0 1.6rem;
         }
-        
-        .upload-status.error {
-            background: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
+
+        .card-body {
+            padding: 1rem;
+            flex: 1;
         }
-        
-        .upload-status.info {
-            background: #d1ecf1;
-            color: #0c5460;
-            border: 1px solid #bee5eb;
+
+        /* ============= FORM ELEMENTS ============= */
+        .form-group {
+            margin-bottom: 1.25rem;
         }
-        
-        .upload-status.warning {
-            background: #fff3cd;
-            color: #856404;
-            border: 1px solid #ffeeba;
+
+        .form-group:last-child {
+            margin-bottom: 0;
         }
-        
-        .btn-disabled {
+
+        label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--text);
+            margin-bottom: 0.4rem;
+        }
+
+        input[type="text"],
+        input[type="tel"],
+        input[type="number"],
+        input[type="file"],
+        input[type="url"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 0.65rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.95rem;
+            color: var(--text);
+            background: var(--surface);
+            -webkit-appearance: none;
+            appearance: none;
+            transition: all 0.2s ease;
+        }
+
+        input[type="text"]:focus,
+        input[type="tel"]:focus,
+        input[type="number"]:focus,
+        input[type="file"]:focus,
+        input[type="url"]:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(255, 168, 39, 0.1);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        small {
+            display: block;
+            color: var(--text-light);
+            font-size: 0.8rem;
+            margin-top: 0.3rem;
+        }
+
+        /* ============= BUTTONS ============= */
+        .btn {
+            padding: 0.7rem 1.25rem;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            -webkit-appearance: none;
+            appearance: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4rem;
+            min-height: 40px;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            width: 100%;
+        }
+
+        .btn-primary:active {
+            background: var(--primary-dark);
+            transform: scale(0.96);
+        }
+
+        .btn-primary:disabled {
             opacity: 0.6;
             cursor: not-allowed;
         }
-        
-        .upload-info-box {
-            background: #f0f8ff;
-            border-left: 4px solid var(--accent);
-            padding: 1rem;
-            border-radius: 6px;
-            margin: 1rem 0;
-            font-size: 0.9rem;
+
+        .btn-secondary {
+            background: var(--border);
+            color: var(--text);
         }
-        
-        .upload-info-box i {
-            color: var(--accent);
-            margin-right: 0.5rem;
+
+        .btn-secondary:active {
+            background: #d0d0d0;
         }
-        
-        .file-input-label {
-            display: block;
-            padding: 2rem;
-            border: 2px dashed var(--accent);
-            border-radius: 8px;
+
+        .btn-danger {
+            background: var(--error);
+            color: white;
+        }
+
+        .btn-danger:active {
+            background: #E63B54;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn-group .btn {
+            flex: 1;
+        }
+
+        /* ============= UPLOAD ZONE ============= */
+        .upload-zone {
+            border: 2px dashed var(--primary);
+            border-radius: 12px;
+            padding: 1.5rem 1rem;
             text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
             background: rgba(255, 168, 39, 0.05);
+            cursor: pointer;
+            transition: all 0.2s ease;
         }
-        
-        .file-input-label:hover {
-            border-color: var(--accent2);
-            background: rgba(255, 168, 39, 0.1);
-            transform: translateY(-2px);
-        }
-        
-        .file-input-label.active {
-            border-color: var(--accent);
+
+        .upload-zone:active,
+        .upload-zone.active {
+            border-color: var(--primary-dark);
             background: rgba(255, 168, 39, 0.15);
         }
-        
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+
+        .upload-zone i {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            display: block;
         }
-        
-        .fa-spinner {
-            animation: spin 1s linear infinite;
+
+        .upload-zone p {
+            color: var(--text);
+            font-weight: 600;
+            margin: 0;
+            font-size: 0.9rem;
         }
-        
-        .status-indicator {
-            display: inline-block;
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            margin-left: 0.5rem;
-            animation: pulse 2s ease-in-out infinite;
+
+        .upload-zone small {
+            color: var(--text-light);
+            font-size: 0.8rem;
         }
-        
-        .status-indicator.green {
-            background: #28a745;
+
+        input[type="file"] {
+            display: none;
         }
-        
-        .status-indicator.orange {
-            background: #ffc107;
+
+        /* ============= GALLERY GRID ============= */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.25rem;
+            margin: 0;
+            width: 100%;
         }
-        
-        .status-indicator.red {
-            background: #e74c3c;
+
+        /* Videos ALWAYS stay 1 column (full width) */
+        .gallery-grid.video-grid {
+            grid-template-columns: 1fr !important;
         }
-        
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-        
-        @media (max-width: 768px) {
-            #adminGalleryContainer {
+
+        /* Tablet and up: 2 columns for images */
+        @media (min-width: 600px) {
+            .gallery-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
-            
-            .admin-heading {
-                font-size: 2.5rem;
-            }
-            
-            /* Stack settings and add new item on tablet */
-            .settings-row {
+
+            /* Videos always stay 1 column (full width) even on tablet */
+            .gallery-grid.video-grid {
                 grid-template-columns: 1fr !important;
             }
         }
-        
+
+        .gallery-item {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            min-width: 0;
+        }
+
+        .gallery-item-image {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 4/3;
+            object-fit: cover;
+            background: #f0f0f0;
+            display: block;
+        }
+
+        .gallery-item-content {
+            padding: 0.75rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .gallery-item-content input,
+        .gallery-item-content textarea {
+            font-size: 0.85rem;
+        }
+
+        .gallery-item-content .form-group {
+            margin-bottom: 0.5rem;
+        }
+
+        .gallery-item-actions {
+            display: flex;
+            gap: 0.4rem;
+            margin-top: 0.75rem;
+        }
+
+        .gallery-item-actions .btn {
+            flex: 1;
+            padding: 0.55rem;
+            font-size: 0.8rem;
+        }
+
+        /* ============= TOASTS ============= */
+        .toast-shelf {
+            position: fixed;
+            bottom: 1rem;
+            left: 0.75rem;
+            right: 0.75rem;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .toast {
+            background: var(--surface);
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            border-left: 4px solid var(--info);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            animation: slideIn 0.3s ease;
+            font-size: 0.85rem;
+        }
+
+        .toast i {
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+
+        .toast.success {
+            border-left-color: var(--success);
+            color: var(--success);
+        }
+
+        .toast.error {
+            border-left-color: var(--error);
+            color: var(--error);
+        }
+
+        .toast.warning {
+            border-left-color: var(--warning);
+            color: var(--warning);
+        }
+
+        .toast.info {
+            border-left-color: var(--info);
+            color: var(--info);
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* ============= MODALS ============= */
+        .modal-backdrop {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 999;
+        }
+
+        .modal-backdrop.open {
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+        }
+
+        .modal-dialog {
+            background: var(--surface);
+            border-radius: 16px 16px 0 0;
+            max-width: 500px;
+            width: 100%;
+            max-height: 85vh;
+            overflow-y: auto;
+            animation: slideUp 0.3s ease;
+        }
+
+        .modal-header {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            background: var(--surface);
+            z-index: 10;
+        }
+
+        .modal-header h2 {
+            font-size: 1rem;
+            margin: 0;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.3rem;
+            cursor: pointer;
+            color: var(--text-light);
+            padding: 0;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-body {
+            padding: 1rem;
+        }
+
+        .modal-footer {
+            padding: 1rem;
+            border-top: 1px solid var(--border);
+            display: flex;
+            gap: 0.5rem;
+            position: sticky;
+            bottom: 0;
+            background: var(--surface);
+            z-index: 10;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* ============= UTILITY ============= */
+        .hidden {
+            display: none !important;
+        }
+
+        .mt-2 {
+            margin-top: 1rem;
+        }
+
+        .grid-cols-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+        }
+
         @media (max-width: 480px) {
-            #adminGalleryContainer {
+            .grid-cols-2 {
                 grid-template-columns: 1fr;
             }
         }
-    </style>
+
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: var(--border);
+            border-radius: 2px;
+            overflow: hidden;
+            margin: 0.6rem 0;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--primary-light));
+            width: 0%;
+            transition: width 0.3s ease;
+        }
 </head>
 <body>
-    <!-- Navigation Bar -->
-    <nav class="navbar navbar-expand-lg sticky-top">
-        <div class="container-fluid" style="padding: 0 2rem;">
-            <a class="navbar-brand" href="index.html">
-                <i class="fas fa-cog"></i>Admin Dashboard
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
+    <!-- Navigation -->
+    <div class="topnav">
+        <a class="topnav-brand" href="index.html">
+            <i class="fas fa-tools"></i> Admin
+        </a>
+        <div class="topnav-actions">
+            <button class="btn-icon" onclick="refreshData()" title="Refresh">
+                <i class="fas fa-sync-alt"></i>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="index.html">← Back to Gallery</a></li>
-                </ul>
-            </div>
+            <button class="btn-icon" onclick="goBack()" title="Back">
+                <i class="fas fa-arrow-left"></i>
+            </button>
         </div>
-    </nav>
+    </div>
 
-    <div class="container" style="padding: 2rem 3rem; max-width: 1400px; margin: 0 auto;">
-        <h1 class="admin-heading">ADMIN DASHBOARD</h1>
-        <p class="admin-subheading">Manage your welding gallery and business settings</p>
-        <div class="divider"></div>
-
-        <!-- Settings and Upload Row -->
-        <div class="settings-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
-            <!-- Settings Section -->
-            <div class="card">
-                <div class="card-header">
-                    <h5 class="mb-0"><i class="fas fa-cogs"></i> Business Settings</h5>
-                </div>
-                <div class="card-body">
-                    <div class="mb-3">
-                        <label for="businessPhone" class="form-label">WhatsApp Phone Number (with country code, e.g., +237676866995)</label>
-                        <input type="tel" class="form-control" id="businessPhone" placeholder="+237676866995" value="+237676866995">
-                    </div>
-                    <button class="btn btn-primary" onclick="saveSettings()"><i class="fas fa-save"></i> Save Settings</button>
-                </div>
-            </div>
-
-            <!-- Upload Section -->
-            <div class="card">
-                <div class="card-header">
-                    <h5 class="mb-0"><i class="fas fa-image"></i> Upload New Image</h5>
-                    <small style="color: rgba(255,255,255,0.8); display: block; margin-top: 0.5rem;">Add a new item to your gallery</small>
-                </div>
-                <div class="card-body">
-                    <div class="mb-3">
-                        <label for="newItemTitle" class="form-label">Item Title</label>
-                        <input type="text" class="form-control" id="newItemTitle" placeholder="e.g., Stainless Steel Gate">
-                        <small class="text-muted">Describe your welding project</small>
-                    </div>
-                    <div class="mb-3">
-                        <label for="newItemPrice" class="form-label">Price (FCFA)</label>
-                        <input type="text" class="form-control" id="newItemPrice" placeholder="e.g., 50,000">
-                        <small class="text-muted">Enter the price for this project</small>
-                    </div>
-                    <div class="mb-3">
-                        <label for="newItemImage" class="form-label">Select Image File</label>
-                        <input type="file" class="form-control" id="newItemImage" accept="image/*">
-                        <small class="text-muted">Supported formats: JPG, PNG, WebP (Max 5MB)</small>
-                    </div>
-                    <div style="background: #f0f8ff; border-left: 4px solid #FFA827; padding: 1rem; border-radius: 6px; margin-bottom: 1rem; font-size: 0.9rem;">
-                        <i class="fas fa-info-circle" style="color: #FFA827;"></i> Note: If gallery is full, the oldest item will be automatically replaced
-                    </div>
-                    <button class="btn btn-primary w-100" onclick="addNewItem()"><i class="fas fa-image"></i> Add Item to Gallery</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Gallery Management Section -->
+    <!-- Main Container -->
+    <div class="container">
+        <!-- ============= IMAGES SECTION ============= -->
         <div class="card">
             <div class="card-header">
-                <h5 class="mb-0"><i class="fas fa-images"></i> Manage Gallery Items</h5>
-                <small style="color: rgba(255,255,255,0.8); display: block; margin-top: 0.5rem;">Edit, update, or delete existing gallery items</small>
+                <h2><i class="fas fa-images"></i> Add Images</h2>
+                <p id="imageCount">0 images</p>
             </div>
             <div class="card-body">
-                <div id="adminGalleryContainer">
-                    <!-- Gallery items loaded here -->
+                <!-- Upload Zone -->
+                <div class="upload-zone" onclick="document.getElementById('imageInput').click()">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <p>Tap to add image</p>
+                    <small>From gallery or camera</small>
                 </div>
+                <input type="file" id="imageInput" accept="image/*" onchange="handleImageSelect(event)">
+
+                <!-- Image Details Form -->
+                <div id="imageFormSection" class="hidden">
+                    <div class="form-group">
+                        <label>Product Title</label>
+                        <input type="text" id="imageTitle" placeholder="e.g., Steel Gate">
+                        <small>Describe your product</small>
+                    </div>
+                    <div class="form-group">
+                        <label>Price (FCFA)</label>
+                        <input type="text" id="imagePrice" placeholder="e.g., 50,000">
+                        <small>Enter the selling price</small>
+                    </div>
+                    <button class="btn btn-primary" onclick="saveImage()">
+                        <i class="fas fa-save"></i> Save Image
+                    </button>
+                </div>
+
+                <div id="imagesList" style="margin-top: 1rem;"></div>
             </div>
         </div>
 
-        <!-- Video Upload Section -->
+        <!-- ============= VIDEOS SECTION ============= -->
         <div class="card">
             <div class="card-header">
-                <h5 class="mb-0"><i class="fas fa-video"></i> Upload New Video</h5>
-                <small style="color: rgba(255,255,255,0.8); display: block; margin-top: 0.5rem;">Add videos to showcase your welding projects</small>
+                <h2><i class="fas fa-video"></i> Add Videos</h2>
+                <p id="videoCount">0 videos</p>
             </div>
             <div class="card-body">
-                <div class="mb-3">
-                    <label for="newVideoTitle" class="form-label">Video Title</label>
-                    <input type="text" class="form-control" id="newVideoTitle" placeholder="e.g., Custom Gate Welding Process">
-                    <small class="text-muted">Give your video a meaningful title</small>
+                <!-- Tab Selection -->
+                <div class="grid-cols-2">
+                    <button class="btn btn-secondary" id="videoLocalTab" onclick="switchVideoTab('local')" style="border: 2px solid var(--primary);">
+                        <i class="fas fa-file-video"></i> Upload
+                    </button>
+                    <button class="btn btn-secondary" id="videoYoutubeTab" onclick="switchVideoTab('youtube')">
+                        <i class="fab fa-youtube"></i> YouTube
+                    </button>
                 </div>
-                <div class="mb-3">
-                    <label for="newVideoDesc" class="form-label">Video Description</label>
-                    <textarea class="form-control" id="newVideoDesc" placeholder="Describe your welding project..." rows="3"></textarea>
-                    <small class="text-muted">Explain what viewers will see in this video</small>
-                </div>
-                
-                <!-- Option 1: Upload Local File -->
-                <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem; border: 2px dashed #FFA827;">
-                    <div style="display: flex; align-items: center; margin-bottom: 1rem;">
-                        <i class="fas fa-file-video" style="font-size: 1.5rem; color: #FFA827; margin-right: 0.75rem;"></i>
-                        <h6 style="margin: 0; color: var(--text); font-weight: 600;">Option 1: Upload Video File</h6>
+
+                <!-- Local Video Upload -->
+                <div id="videoLocalSection">
+                    <div class="upload-zone mt-2" onclick="document.getElementById('videoInput').click()">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p>Tap to select video</p>
+                        <small>MP4, WebM supported</small>
                     </div>
-                    <label for="newVideoFile" class="form-label">Select Video File from Your Device</label>
-                    <input type="file" class="form-control" id="newVideoFile" accept="video/*">
-                    <small class="text-muted">Supported: MP4, WebM, OGG (Max 100MB) • File will be stored and played directly on your website</small>
-                </div>
-                
-                <div style="text-align: center; color: var(--text2); margin: 1.5rem 0; font-weight: 600;">
-                    OR
-                </div>
-                
-                <!-- Option 2: YouTube Link -->
-                <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem; border: 2px dashed #FFA827;">
-                    <div style="display: flex; align-items: center; margin-bottom: 1rem;">
-                        <i class="fab fa-youtube" style="font-size: 1.5rem; color: #e74c3c; margin-right: 0.75rem;"></i>
-                        <h6 style="margin: 0; color: var(--text); font-weight: 600;">Option 2: Embed from YouTube</h6>
+                    <input type="file" id="videoInput" accept="video/*" onchange="handleVideoSelect(event)">
+
+                    <div id="videoFormSection" class="hidden">
+                        <div class="form-group">
+                            <label>Video Title</label>
+                            <input type="text" id="videoTitle" placeholder="e.g., Welding Process">
+                            <small>Give your video a clear name</small>
+                        </div>
+                        <div class="form-group">
+                            <label>Description</label>
+                            <textarea id="videoDesc" placeholder="Describe your video..."></textarea>
+                        </div>
+                        <div id="videoProgress" class="hidden">
+                            <p style="font-size: 0.85rem; margin-bottom: 0.3rem;" id="videoProgressText">Uploading...</p>
+                            <div class="progress-bar">
+                                <div class="progress-bar-fill" id="videoProgressBar"></div>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" id="saveVideoBtn" onclick="saveVideo()">
+                            <i class="fas fa-save"></i> Save Video
+                        </button>
                     </div>
-                    <label for="newVideoUrl" class="form-label">YouTube Video URL</label>
-                    <input type="text" class="form-control" id="newVideoUrl" placeholder="https://www.youtube.com/watch?v=... or https://youtu.be/...">
-                    <small class="text-muted">Paste your YouTube video link here • Video will be embedded and played from YouTube</small>
                 </div>
-                
-                <button class="btn btn-primary w-100" onclick="addNewVideo()" style="padding: 0.85rem;"><i class="fas fa-video"></i> Add Video Now</button>
-                
-                <div style="background: #d4edda; border-left: 4px solid #28a745; padding: 1rem; border-radius: 6px; margin-top: 1rem; font-size: 0.9rem;">
-                    <i class="fas fa-check-circle" style="color: #28a745;"></i> <strong>Real-time Display:</strong> Videos are instantly visible to all your website visitors
+
+                <!-- YouTube URL -->
+                <div id="videoYoutubeSection" class="hidden">
+                    <div class="form-group mt-2">
+                        <label>YouTube URL</label>
+                        <input type="url" id="youtubeUrl" placeholder="https://youtube.com/watch?v=..." onchange="previewYoutube()">
+                        <small>Paste YouTube link</small>
+                    </div>
+                    <div id="youtubePreview" class="hidden">
+                        <iframe id="youtubeFrame" style="width: 100%; height: 180px; border: none; border-radius: 8px; margin: 0.75rem 0;"></iframe>
+                    </div>
+                    <div class="form-group">
+                        <label>Video Title</label>
+                        <input type="text" id="youtubeTitle" placeholder="e.g., Metalwork Project">
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea id="youtubeDesc" placeholder="Describe this video..."></textarea>
+                    </div>
+                    <button class="btn btn-primary" onclick="saveYoutube()">
+                        <i class="fab fa-youtube"></i> Add Video
+                    </button>
                 </div>
+
+                <div id="videosList" style="margin-top: 1rem;"></div>
             </div>
         </div>
 
-        <!-- Video Management Section -->
+        <!-- ============= SETTINGS SECTION ============= -->
         <div class="card">
             <div class="card-header">
-                <h5 class="mb-0"><i class="fas fa-film"></i> Manage Videos</h5>
-                <small style="color: rgba(255,255,255,0.8); display: block; margin-top: 0.5rem;">Edit, update, or delete existing videos on your website</small>
+                <h2><i class="fas fa-sliders-h"></i> Settings</h2>
             </div>
             <div class="card-body">
-                <div id="adminVideosContainer">
-                    <!-- Videos loaded here -->
+                <div class="form-group">
+                    <label>WhatsApp Number</label>
+                    <input type="tel" id="businessPhone" placeholder="+237XXXXXXXXX">
+                    <small>With country code (for inquiries)</small>
                 </div>
+                <div class="form-group">
+                    <label>Business Name</label>
+                    <input type="text" id="businessName" placeholder="Your business name">
+                </div>
+                <button class="btn btn-primary" onclick="saveSettings()">
+                    <i class="fas fa-save"></i> Save Settings
+                </button>
             </div>
         </div>
 
-    <!-- Bootstrap JS (downloaded locally) -->
-    <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- Gallery Management JS -->
-    <script src="js/gallery.js"></script>
-    <!-- Admin Gallery JS -->
-    <script src="js/admin-gallery.js"></script>
-    <!-- Videos JS -->
-    <script src="js/videos.js"></script>
-    <!-- Admin Videos JS -->
-    <script src="js/admin-videos.js"></script>
+        <!-- Spacer -->
+        <div style="height: 2rem;"></div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-shelf" id="toastShelf"></div>
+
+    <!-- Modal -->
+    <div class="modal-backdrop" id="modalBackdrop" onclick="if(event.target === this) closeModal()">
+        <div class="modal-dialog">
+            <div class="modal-header">
+                <h2 id="modalTitle"></h2>
+                <button class="modal-close" onclick="closeModal()">×</button>
+            </div>
+            <div class="modal-body" id="modalBody"></div>
+            <div class="modal-footer" id="modalFooter"></div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // ============= STORAGE MANAGEMENT =============
+        const GALLERY_KEY = 'beli_gallery_v2';
+        const VIDEOS_KEY = 'beli_videos_v2';
+        const SETTINGS_KEY = 'beli_settings';
+
+        // ============= INITIALIZATION =============
+        window.addEventListener('DOMContentLoaded', () => {
+            loadSettings();
+            loadGallery();
+            loadVideos();
+        });
+
+        // ============= TOAST NOTIFICATIONS =============
+        function showToast(message, type = 'info') {
+            const shelf = document.getElementById('toastShelf');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'times-circle' : type === 'warning' ? 'exclamation-triangle' : 'info-circle'}"></i>
+                <span>${message}</span>
+            `;
+            shelf.appendChild(toast);
+
+            setTimeout(() => {
+                toast.remove();
+            }, 4000);
+        }
+
+        // ============= MODAL =============
+        function openModal(title, body, footerHtml = '') {
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('modalBody').innerHTML = body;
+            document.getElementById('modalFooter').innerHTML = footerHtml;
+            document.getElementById('modalBackdrop').classList.add('open');
+        }
+
+        function closeModal() {
+            document.getElementById('modalBackdrop').classList.remove('open');
+        }
+
+        // ============= SETTINGS =============
+        function loadSettings() {
+            const settings = JSON.parse(localStorage.getItem(SETTINGS_KEY) || '{}');
+            document.getElementById('businessPhone').value = settings.phone || '';
+            document.getElementById('businessName').value = settings.name || '';
+        }
+
+        function saveSettings() {
+            const settings = {
+                phone: document.getElementById('businessPhone').value,
+                name: document.getElementById('businessName').value
+            };
+            localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings));
+            showToast('✓ Settings saved!', 'success');
+        }
+
+        // ============= IMAGE HANDLING =============
+        let currentImageFile = null;
+        let compressedImageData = null;
+
+        function handleImageSelect(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            currentImageFile = file;
+            document.getElementById('imageFormSection').classList.remove('hidden');
+            document.getElementById('imageInput').value = '';
+
+            // Compress image
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const img = new Image();
+                img.onload = () => {
+                    const canvas = document.createElement('canvas');
+                    let width = img.width;
+                    let height = img.height;
+
+                    // Max width 800px
+                    if (width > 800) {
+                        height = Math.round(height * 800 / width);
+                        width = 800;
+                    }
+
+                    canvas.width = width;
+                    canvas.height = height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, width, height);
+                    compressedImageData = canvas.toDataURL('image/jpeg', 0.8);
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function saveImage() {
+            const title = document.getElementById('imageTitle').value.trim();
+            const price = document.getElementById('imagePrice').value.trim();
+
+            if (!title) {
+                showToast('Please enter a product title', 'error');
+                return;
+            }
+            if (!price) {
+                showToast('Please enter a price', 'error');
+                return;
+            }
+            if (!compressedImageData) {
+                showToast('Please select an image', 'error');
+                return;
+            }
+
+            let gallery = JSON.parse(localStorage.getItem(GALLERY_KEY) || '[]');
+
+            // Keep only 6 items max
+            if (gallery.length >= 6) {
+                gallery.shift();
+            }
+
+            gallery.push({
+                id: Date.now() + Math.random(),
+                title,
+                price,
+                image: compressedImageData,
+                date: new Date().toISOString()
+            });
+
+            localStorage.setItem(GALLERY_KEY, JSON.stringify(gallery));
+            showToast('✓ Image added to gallery!', 'success');
+
+            // Reset form
+            document.getElementById('imageTitle').value = '';
+            document.getElementById('imagePrice').value = '';
+            document.getElementById('imageFormSection').classList.add('hidden');
+            currentImageFile = null;
+            compressedImageData = null;
+
+            loadGallery();
+        }
+
+        function loadGallery() {
+            const gallery = JSON.parse(localStorage.getItem(GALLERY_KEY) || '[]');
+            document.getElementById('imageCount').textContent = `${gallery.length} image${gallery.length !== 1 ? 's' : ''}`;
+
+            const listContainer = document.getElementById('imagesList');
+            if (gallery.length === 0) {
+                listContainer.innerHTML = '<p style="text-align: center; color: var(--text-light); padding: 1rem 0; font-size: 0.9rem;">No images yet.</p>';
+                return;
+            }
+
+            listContainer.innerHTML = `
+                <div class="gallery-grid">
+                    ${gallery.map(item => `
+                        <div class="gallery-item">
+                            <img src="${item.image}" alt="${item.title}" class="gallery-item-image">
+                            <div class="gallery-item-content">
+                                <div style="flex: 1;">
+                                    <p style="font-weight: 600; margin: 0 0 0.3rem 0; font-size: 0.9rem;">${item.title}</p>
+                                    <p style="color: var(--primary); font-weight: 600; margin: 0; font-size: 0.85rem;">₣${item.price}</p>
+                                </div>
+                                <div class="gallery-item-actions">
+                                    <button class="btn btn-primary" onclick="editImage(${item.id})">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn btn-danger" onclick="deleteImage(${item.id})">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        function editImage(id) {
+            const gallery = JSON.parse(localStorage.getItem(GALLERY_KEY) || '[]');
+            const item = gallery.find(i => i.id === id);
+            if (!item) return;
+
+            const body = `
+                <div class="form-group">
+                    <label>Title</label>
+                    <input type="text" id="editTitle" value="${item.title}">
+                </div>
+                <div class="form-group">
+                    <label>Price</label>
+                    <input type="text" id="editPrice" value="${item.price}">
+                </div>
+            `;
+
+            const footer = `
+                <button class="btn btn-secondary" style="flex: 1;" onclick="closeModal()">Cancel</button>
+                <button class="btn btn-primary" style="flex: 1;" onclick="confirmEditImage(${item.id})">Save</button>
+            `;
+
+            openModal('Edit Image', body, footer);
+        }
+
+        function confirmEditImage(id) {
+            const title = document.getElementById('editTitle').value.trim();
+            const price = document.getElementById('editPrice').value.trim();
+
+            if (!title || !price) {
+                showToast('Please fill in all fields', 'error');
+                return;
+            }
+
+            let gallery = JSON.parse(localStorage.getItem(GALLERY_KEY) || '[]');
+            const item = gallery.find(i => i.id === id);
+            if (item) {
+                item.title = title;
+                item.price = price;
+                localStorage.setItem(GALLERY_KEY, JSON.stringify(gallery));
+                showToast('✓ Image updated!', 'success');
+                closeModal();
+                loadGallery();
+            }
+        }
+
+        function deleteImage(id) {
+            if (confirm('Delete this image?')) {
+                let gallery = JSON.parse(localStorage.getItem(GALLERY_KEY) || '[]');
+                gallery = gallery.filter(i => i.id !== id);
+                localStorage.setItem(GALLERY_KEY, JSON.stringify(gallery));
+                showToast('✓ Image deleted!', 'success');
+                loadGallery();
+            }
+        }
+
+        // ============= VIDEO HANDLING =============
+        let currentVideoFile = null;
+
+        function switchVideoTab(tab) {
+            const isLocal = tab === 'local';
+            document.getElementById('videoLocalTab').style.borderColor = isLocal ? 'var(--primary)' : 'transparent';
+            document.getElementById('videoYoutubeTab').style.borderColor = isLocal ? 'transparent' : 'var(--primary)';
+            document.getElementById('videoLocalSection').classList.toggle('hidden', !isLocal);
+            document.getElementById('videoYoutubeSection').classList.toggle('hidden', isLocal);
+        }
+
+        function handleVideoSelect(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            currentVideoFile = file;
+            document.getElementById('videoFormSection').classList.remove('hidden');
+            document.getElementById('videoInput').value = '';
+        }
+
+        function saveVideo() {
+            if (!currentVideoFile) {
+                showToast('Please select a video', 'error');
+                return;
+            }
+
+            const title = document.getElementById('videoTitle').value.trim();
+            if (!title) {
+                showToast('Please enter a video title', 'error');
+                return;
+            }
+
+            const btn = document.getElementById('saveVideoBtn');
+            btn.disabled = true;
+
+            const reader = new FileReader();
+            reader.onprogress = (e) => {
+                const percent = Math.round(e.loaded / e.total * 100);
+                document.getElementById('videoProgressText').textContent = `Uploading: ${percent}%`;
+                document.getElementById('videoProgressBar').style.width = percent + '%';
+            };
+            reader.onload = (e) => {
+                let videos = JSON.parse(localStorage.getItem(VIDEOS_KEY) || '[]');
+                videos.push({
+                    id: Date.now() + Math.random(),
+                    title: title,
+                    description: document.getElementById('videoDesc').value,
+                    videoUrl: e.target.result,
+                    isLocal: true,
+                    date: new Date().toISOString()
+                });
+                localStorage.setItem(VIDEOS_KEY, JSON.stringify(videos));
+                showToast('✓ Video saved!', 'success');
+
+                // Reset
+                currentVideoFile = null;
+                document.getElementById('videoTitle').value = '';
+                document.getElementById('videoDesc').value = '';
+                document.getElementById('videoFormSection').classList.add('hidden');
+                document.getElementById('videoProgress').classList.add('hidden');
+                btn.disabled = false;
+
+                loadVideos();
+            };
+            reader.onerror = () => {
+                showToast('Error reading video file', 'error');
+                btn.disabled = false;
+            };
+
+            document.getElementById('videoProgress').classList.remove('hidden');
+            reader.readAsDataURL(currentVideoFile);
+        }
+
+        function previewYoutube() {
+            const url = document.getElementById('youtubeUrl').value.trim();
+            if (!url) {
+                document.getElementById('youtubePreview').classList.add('hidden');
+                return;
+            }
+
+            const videoId = extractYoutubeId(url);
+            if (videoId) {
+                document.getElementById('youtubeFrame').src = `https://www.youtube.com/embed/${videoId}`;
+                document.getElementById('youtubePreview').classList.remove('hidden');
+            }
+        }
+
+        function extractYoutubeId(url) {
+            const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=))([^&\s]+)/);
+            return match ? match[1] : null;
+        }
+
+        function saveYoutube() {
+            const url = document.getElementById('youtubeUrl').value.trim();
+            const title = document.getElementById('youtubeTitle').value.trim();
+
+            if (!url || !title) {
+                showToast('Please fill in all fields', 'error');
+                return;
+            }
+
+            if (!extractYoutubeId(url)) {
+                showToast('Invalid YouTube URL', 'error');
+                return;
+            }
+
+            let videos = JSON.parse(localStorage.getItem(VIDEOS_KEY) || '[]');
+            videos.push({
+                id: Date.now() + Math.random(),
+                title: title,
+                description: document.getElementById('youtubeDesc').value,
+                videoUrl: url,
+                isLocal: false,
+                date: new Date().toISOString()
+            });
+            localStorage.setItem(VIDEOS_KEY, JSON.stringify(videos));
+            showToast('✓ YouTube video added!', 'success');
+
+            // Reset
+            document.getElementById('youtubeUrl').value = '';
+            document.getElementById('youtubeTitle').value = '';
+            document.getElementById('youtubeDesc').value = '';
+            document.getElementById('youtubePreview').classList.add('hidden');
+
+            loadVideos();
+        }
+
+        function loadVideos() {
+            const videos = JSON.parse(localStorage.getItem(VIDEOS_KEY) || '[]');
+            document.getElementById('videoCount').textContent = `${videos.length} video${videos.length !== 1 ? 's' : ''}`;
+
+            const listContainer = document.getElementById('videosList');
+            if (videos.length === 0) {
+                listContainer.innerHTML = '<p style="text-align: center; color: var(--text-light); padding: 1rem 0; font-size: 0.9rem;">No videos yet.</p>';
+                return;
+            }
+
+            listContainer.innerHTML = `
+                <div class="gallery-grid video-grid" style="margin-top: 0.5rem;">
+                    ${videos.map(video => `
+                        <div class="gallery-item">
+                            <div style="width: 100%; aspect-ratio: 16/9; background: #000; border-radius: 12px 12px 0 0; display: flex; align-items: center; justify-content: center; color: white;">
+                                ${video.isLocal ? '<i class="fas fa-video" style="font-size: 1.8rem;"></i>' : '<i class="fab fa-youtube" style="font-size: 1.8rem; color: #e74c3c;"></i>'}
+                            </div>
+                            <div class="gallery-item-content">
+                                <p style="font-weight: 600; margin: 0 0 0.3rem 0; font-size: 0.9rem;">${video.title}</p>
+                                <p style="color: var(--text-light); font-size: 0.8rem; margin: 0 0 0.5rem 0;">${video.description || 'No description'}</p>
+                                <div class="gallery-item-actions">
+                                    <button class="btn btn-primary" onclick="editVideo(${video.id})">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn btn-danger" onclick="deleteVideo(${video.id})">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        function editVideo(id) {
+            const videos = JSON.parse(localStorage.getItem(VIDEOS_KEY) || '[]');
+            const video = videos.find(v => v.id === id);
+            if (!video) return;
+
+            const body = `
+                <div class="form-group">
+                    <label>Title</label>
+                    <input type="text" id="editVTitle" value="${video.title}">
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea id="editVDesc">${video.description}</textarea>
+                </div>
+            `;
+
+            const footer = `
+                <button class="btn btn-secondary" style="flex: 1;" onclick="closeModal()">Cancel</button>
+                <button class="btn btn-primary" style="flex: 1;" onclick="confirmEditVideo(${video.id})">Save</button>
+            `;
+
+            openModal('Edit Video', body, footer);
+        }
+
+        function confirmEditVideo(id) {
+            const title = document.getElementById('editVTitle').value.trim();
+            const description = document.getElementById('editVDesc').value.trim();
+
+            if (!title) {
+                showToast('Please enter a title', 'error');
+                return;
+            }
+
+            let videos = JSON.parse(localStorage.getItem(VIDEOS_KEY) || '[]');
+            const video = videos.find(v => v.id === id);
+            if (video) {
+                video.title = title;
+                video.description = description;
+                localStorage.setItem(VIDEOS_KEY, JSON.stringify(videos));
+                showToast('✓ Video updated!', 'success');
+                closeModal();
+                loadVideos();
+            }
+        }
+
+        function deleteVideo(id) {
+            if (confirm('Delete this video?')) {
+                let videos = JSON.parse(localStorage.getItem(VIDEOS_KEY) || '[]');
+                videos = videos.filter(v => v.id !== id);
+                localStorage.setItem(VIDEOS_KEY, JSON.stringify(videos));
+                showToast('✓ Video deleted!', 'success');
+                loadVideos();
+            }
+        }
+
+        // ============= UTILITIES =============
+        function refreshData() {
+            loadGallery();
+            loadVideos();
+            showToast('✓ Data refreshed!', 'success');
+        }
+
+        function goBack() {
+            window.location.href = 'index.html';
+        }
+    </script>
 </body>
 </html>
